@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import connection.DbCon;
 import dance_company.usermanagement.dao.*;
@@ -28,7 +29,9 @@ public class LoginServlet extends HttpServlet {
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			user user = udao.userLogin(email, password);
 			if (user != null) {
-				request.getSession().setAttribute("auth", user);
+			HttpSession session = request.getSession(false);
+          	  session.setAttribute("name", user.getName());
+//				request.getSession().setAttribute("auth", user);
 //				out.println("user logged in");
 				response.sendRedirect("index.jsp");
 			} else {

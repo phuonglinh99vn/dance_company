@@ -35,7 +35,7 @@ if (cart_list != null) {
 			%>
 			<div class="col-md-3 my-3">
 				<div class="card w-100">
-						<img class="card-img-top" src="images/<%=p.getImage() %>" alt="" />
+					<img class="card-img-top" src="http://localhost:8080/dance_company/images/<%=p.getImage() %>" alt="" />
 					<div class="card-body">
 						<h5 class="card-title"><%=p.getName() %></h5>
 						<h6 class="level">Level: <%=p.getLevel() %></h6>
