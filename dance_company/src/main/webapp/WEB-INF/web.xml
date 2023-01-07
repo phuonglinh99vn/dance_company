@@ -10,5 +10,13 @@
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/Error.jsp</location>
 	</error-page>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.png</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
 
 </web-app>

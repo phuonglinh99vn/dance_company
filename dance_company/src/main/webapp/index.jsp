@@ -74,7 +74,7 @@
 					<c:if test="${sessionScope.name != null}">
 						<button type="button" class="btn btn-danger me-2"
 							data-bs-toggle="modal" data-bs-target="#logoutModal">
-							Logined</button>
+							${sessionScope.name}</button>
 					</c:if>
 
 
@@ -131,8 +131,7 @@
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header flex">
-									<h1 class="modal-title fs-5 text-center" id="loginModal">Log
-										out</h1>
+									<h1 class="modal-title fs-5 text-center" id="loginModal">Not you?</h1>
 
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
 										aria-label="Close"></button>
@@ -146,7 +145,7 @@
 								</div>
 								<div class="modal-footer">
 
-									<a href="LogoutServlet">Logout</a>
+									<a href="LogoutServlet">Log out?</a>
 
 								</div>
 							</div>
