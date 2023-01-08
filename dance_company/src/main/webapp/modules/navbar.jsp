@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="me-auto">
 			<img src="images/logo.png" alt="Logo" style="width: 45px" /> <a
-				class="navbar-brand fw-bold fs-3" href="/">The Dance Company</a>
+				class="navbar-brand fw-bold fs-3" href="http://localhost:8080/dance_company/">The Dance Company</a>
 		</div>
 		<div>
 			<button class="navbar-toggler" type="button"
@@ -18,9 +18,9 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" aria-current="page"
-						href="/">Home</a></li>
+						href="http://localhost:8080/dance_company/">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="/booking">Book
+					<li class="nav-item"><a class="nav-link" href="http://localhost:8080/dance_company/classList.jsp">Book
 							A Class</a></li>
 					<li class="nav-item"><a class="nav-link" href="http://localhost:8080/dance_company/contactUs.jsp">Contact
 							Us</a></li>
