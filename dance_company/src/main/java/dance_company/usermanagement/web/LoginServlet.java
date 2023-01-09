@@ -29,8 +29,8 @@ public class LoginServlet extends HttpServlet {
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			user user = udao.userLogin(email, password);
 			if (user != null) {
-			HttpSession session = request.getSession(false);
-          	  session.setAttribute("name", user.getName());
+				HttpSession session = request.getSession(false);
+				session.setAttribute("name", user.getName());
 //				request.getSession().setAttribute("auth", user);
 //				out.println("user logged in");
 				response.sendRedirect("index.jsp");
@@ -38,9 +38,9 @@ public class LoginServlet extends HttpServlet {
 				out.println("Your email or password is incorrect");
 			}
 
-		} catch (ClassNotFoundException|SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 
 	}
 }

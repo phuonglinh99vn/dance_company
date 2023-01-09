@@ -8,7 +8,7 @@
 <%
 user auth = (user) request.getSession().getAttribute("auth");
 if (auth != null) {
-    request.setAttribute("person", auth);
+	request.setAttribute("person", auth);
 }
 ProductDao pd = new ProductDao(DbCon.getConnection());
 List<Product> products = pd.getAllProducts();
@@ -17,46 +17,73 @@ if (cart_list != null) {
 	request.setAttribute("cart_list", cart_list);
 }
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Commerce Cart</title>
+<!-- Bootstrap  -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
+
+
+<title>The Dance Company | Shopping Cart</title>
 </head>
-<body>
-	
 
-	<div class="container">
-		<div class="card-header my-3">All Classes</div>
-		<div class="row">
-			<%
-			if (!products.isEmpty()) {
-				for (Product p : products) {
-			%>
-			<div class="col-md-3 my-3">
-				<div class="card w-100">
-					<img class="card-img-top" src="http://localhost:8080/dance_company/images/<%=p.getImage() %>" alt="" />
-					<div class="card-body">
-						<h5 class="card-title"><%=p.getName() %></h5>
-						<h6 class="level">Level: <%=p.getLevel() %></h6>
-						<h6 class="teacher">Teacher: <%=p.getTeacher() %></h6>
-						<div class="mt-3 d-flex justify-content-between">
-							<a class="btn btn-dark" href="add-to-cart?id=<%=p.getId()%>">Add to Cart</a> <a
-								class="btn btn-primary" href="detail?id=<%=p.getId()%>">Book the class</a>
+<body>
+	<jsp:include page="modules/navbar.jsp" />
+	<section class="bg-white pt-3 pb-5 shadow-sm">
+		<div class="container">
+			<h1 class="card-header text-center my-3 fw-bold">All Classes</h1>
+			<div class="row">
+				<%
+				if (!products.isEmpty()) {
+					for (Product p : products) {
+				%>
+				<div class="col-xl-3 mb-3">
+					<div class="card">
+						<img class="card-img-top w-100"
+							style="height: 150px"
+							src="http://localhost:8080/dance_company/images/<%=p.getImage()%>"
+							alt="Card Image" />
+						<div class="card-body d-flex flex-column">
+							<div class="card-title fw-bold fs-4"><%=p.getName()%></div>
+							<div class="card-text">
+								Level:
+								<%=p.getLevel()%></div>
+							<div class="mb-4 cart-text">
+								Teacher:
+								<%=p.getTeacher()%></div>
+							<div class="mt-auto flex-row justify-content-between">
+								<a class="btn btn-dark" href="add-to-cart?id=<%=p.getId()%>">Add
+									to Cart </a> </a> <a class="btn btn-primary"
+									href="detail?id=<%=p.getId()%>">Book the class</a>
+							</div>
+
 						</div>
 					</div>
 				</div>
+				<%
+				}
+				} else {
+				out.println("There are no classes available");
+				}
+				%>
 			</div>
-			<%
-			}
-			} else {
-			out.println("There are no classes available");
-			}
-			%>
-
 		</div>
-	</div>
+	</section>
+	<jsp:include page="modules/footer.jsp" />
 
-	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -4,8 +4,11 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
 		http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
-	<display-name>User Management Web Application</display-name>
+	<display-name>The Dance Company</display-name>
 
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/Error.jsp</location>
@@ -14,7 +17,7 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.png</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.jpg</url-pattern>
 	</servlet-mapping>
