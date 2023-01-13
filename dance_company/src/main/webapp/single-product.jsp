@@ -1,130 +1,92 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
 
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP Page</title>
+<title>The Dance Company | ${detail.name} - ${detail.level}</title>
+
+<!-- Bootstrap 5.2 -->
 <link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<style>
-.gallery-wrap .img-big-wrap img {
-	height: 450px;
-	width: auto;
-	display: inline-block;
-	cursor: zoom-in;
-}
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
 
-.gallery-wrap .img-small-wrap .item-gallery {
-	width: 60px;
-	height: 60px;
-	border: 1px solid #ddd;
-	margin: 7px 2px;
-	display: inline-block;
-	overflow: hidden;
-}
+<!-- fonts style -->
+<link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
 
-.gallery-wrap .img-small-wrap {
-	text-align: center;
-}
+<!-- Helper Stylesheet -->
+<link rel="stylesheet"
+	href="http://localhost:8080/dance_company/css/helper.css"
+	type="text/css" />
 
-.gallery-wrap .img-small-wrap img {
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: cover;
-	border-radius: 4px;
-	cursor: zoom-in;
-}
-
-.img-big-wrap img {
-	width: 100% !important;
-	height: auto !important;
-}
-</style>
 </head>
 <body>
-	<div class="col-sm-9">
-		<div class="container">
-			<div class="card">
-				<div class="row">
-					<aside class="col-sm-5 border-right">
-						<article class="gallery-wrap">
-							<div class="img-big-wrap">
-								<div>
-									<a href="#"><img
-										src="http://localhost:8080/dance_company/images/${detail.image}"></a>
-								</div>
-							</div>
-							<!-- slider-product.// -->
-							<div class="img-small-wrap"></div>
-							<!-- slider-nav.// -->
-						</article>
-						<!-- gallery-wrap .end// -->
-					</aside>
-					<aside class="col-sm-7">
-						<article class="card-body p-5">
-							<h3 class="title mb-3">${detail.name}</h3>
-							<h3 class="title mb-3">${detail.level}</h3>
-							<dl class="item-property">
-								<dt>Description</dt>
-								<dd>
-									<p>${detail.teacher}</p>
-								</dd>
-							</dl>
+	<jsp:include page="modules/navbar.jsp" />
 
-							<hr>
-							<div class="row">
-								<div class="col-sm-5">
-									<dl class="param param-inline">
-										<dt>Class Timetable:</dt>
-										<dd>
-
-											<select name="timetable">
-												<c:forEach var="item" items="${schedule}">
-													<option value="${item.time}"><c:out
-															value="${item.time}" /></option>
-												</c:forEach>
-											</select>
-										</dd>
-									</dl>
-									<!-- item-property .// -->
-								</div>
-								<!-- col.// -->
-
-							</div>
-							<!-- row.// -->
-							<hr>
-							<a href="#" class="btn btn-lg btn-primary text-uppercase">
-								Buy now </a> <a href="#"
-								class="btn btn-lg btn-outline-primary text-uppercase"> <i
-								class="fas fa-shopping-cart"></i> Add to cart
-							</a>
-						</article>
-						<!-- card-body.// -->
-					</aside>
-					<!-- col.// -->
+	<section class="mb-5" style="height: auto">
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col me-5">
+					<img
+						src="http://localhost:8080/dance_company/images/${detail.image}"
+						class="w-100 rounded" />
 				</div>
-				<!-- row.// -->
+				<div class="col">
+					<div class="text-white">
+						<h1 class="mb-2 fw-bold">${detail.name}</h1>
+						<h5 class="mb-4 fw-bold">${detail.level}</h5>
+						<h5 class="">Instructor: ${detail.teacher}</h5>
+						<hr style="color: #C69749; opacity: 1">
+						<p>A beginner level class for dancers in their first few years
+							of Ballet. In a friendly, relaxed and well-structured atmosphere
+							practice the foundations of classical ballet including the
+							positions, alignment, lines and co-ordination required for basic
+							ballet. The class starts with exercises at the bare followed by
+							work in the centre of the floor. Ballet is perfect for improving
+							core strength, posture, grace and muscle tone! This class is for
+							adults aged 16 and over. If you have never done any Ballet before
+							we encourage you to enroll in an Introduction to Ballet short
+							course with us prior to attending the Beginner Ballet class.
+						<p>Please discuss with your teacher if you feel you are ready
+							to progress up to the next level.
+						<hr style="color: #C69749; opacity: 1">
+						<div class="d-flex justify-content-between mb-3">
+							<label for="timetable">Select Time: </label> <select
+								name="timetable" id="timetable" class="form-select"
+								style="width: 50%" aria-label=".form-select">
+								<option selected>13/01/2023</option>
+								<c:forEach var="item" items="${schedule}">
+									<option value="${item.time}"><c:out
+											value="${item.time}" /></option>
+								</c:forEach>
+							</select>
+						</div>
+						<hr style="color: #C69749; opacity: 1">
+						<button class="btn btn-warning float-end d-flex align-items-center" type="submit">
+							<i class="fa-solid fa-cart-shopping fs-4 me-2"></i> 
+							<span>Add to Cart</span>
+						</button>
+					</div>
+				</div>
 			</div>
-			<!-- card.// -->
-
-
 		</div>
-	</div>
-	</div>
-	</div>
-
+	</section>
+	
+	<jsp:include page="modules/footer.jsp" />
+	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/29032ae126.js"
+		crossorigin="anonymous"></script>
 </body>
 </html>
