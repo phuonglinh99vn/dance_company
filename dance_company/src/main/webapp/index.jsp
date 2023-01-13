@@ -15,12 +15,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-
-
-<title>The Dance Company</title>
-
-<link rel="stylesheet" href="./css/helper.css">
-<link rel="stylesheet" href="./css/footer.css">
+<title>The Dance Company | Homepage</title>
 <!-- Bootstrap 5.2 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -30,9 +25,6 @@
 
 
 <!-- fonts style -->
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
-	rel="stylesheet" />
 <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
 
 <!-- Helper Stylesheet -->
