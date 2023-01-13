@@ -10,7 +10,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-
 <title>Contact Us</title>
 
 <!-- Bootstrap 5.2 -->
@@ -20,11 +19,13 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 
-
 <!-- fonts style -->
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
-	rel="stylesheet" />
+<link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
+
+<!-- Helper Stylesheet -->
+<link rel="stylesheet"
+	href="http://localhost:8080/dance_company/css/helper.css"
+	type="text/css" />
 </head>
 <body>
 	<jsp:include page="modules/navbar.jsp" />
@@ -52,8 +53,8 @@
 								</div>
 								<div class="col-md-6 mb-3">
 									<div class="form-group">
-										<label class="label fw-bold" for="email">Email
-											Address</label> <input type="email" class="form-control" name="email"
+										<label class="label fw-bold" for="email">Email Address</label>
+										<input type="email" class="form-control" name="email"
 											id="email" placeholder="Email" />
 									</div>
 								</div>
@@ -89,6 +90,8 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/29032ae126.js"
 		crossorigin="anonymous"></script>
 </body>
 </html>
