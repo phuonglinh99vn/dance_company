@@ -179,12 +179,6 @@
 		</div>
 	</section>
 	<!-- end client section -->
-
-	<!-- map section -->
-	<section class="map_section">
-		<div id="map" class="h-100 w-100"></div>
-	</section>
-
 	<jsp:include page="modules/footer.jsp" />
 
 	<script
