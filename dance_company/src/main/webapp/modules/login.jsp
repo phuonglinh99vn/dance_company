@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
-	data-bs-target="#loginModal">Login</button>
-
 <div class="modal fade" id="loginModal" tabindex="-1"
 	aria-labelledby="loginModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
@@ -35,10 +32,12 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<p class="text-center">Not a member yet?
-					<a href="#">Sign Up</a>
+				<p class="text-center">
+					Not a member yet? <a href="#signupModal" data-bs-toggle="modal">Sign
+						Up</a>
+					<jsp:include page="register.jsp" />
 				</p>
-				
+
 			</div>
 		</div>
 	</div>

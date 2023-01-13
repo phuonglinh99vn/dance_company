@@ -29,12 +29,7 @@
 			</div>
 		</div>
 		<div class="d-flex align-items-center">
-				<c:if test="${sessionScope.name == null}">
-					<jsp:include page="login.jsp" />
-				</c:if>
-				<c:if test="${sessionScope.name != null}">
-					<jsp:include page="logout.jsp" />
-				</c:if>
+				<jsp:include page="userNavDropdown.jsp" />
 				<a class="nav-link ms-3" href="#" style="display: inline-block">
 					<i class="fa-solid fa-cart-shopping"></i>
 				</a>
