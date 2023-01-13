@@ -31,25 +31,25 @@ if (cart_list != null) {
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous" />
+<link rel="stylesheet" href="./css/helper.css">
+<link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
 
 <title>E-Commerce Cart</title>
 
-<title>The Dance Company | Shopping Cart</title>
+<title>The Dance Company | Book A Class</title>
 </head>
 
 <body>
-
-
 	<jsp:include page="modules/navbar.jsp" />
-	<section class="bg-white pt-3 pb-5 shadow-sm">
+	<section class="bg-custom-dark pt-3 pb-5 shadow-sm">
 		<div class="container">
-			<h1 class="card-header text-center my-3 fw-bold">All Classes</h1>
+			<h1 class="card-header text-center text-white mt-5 mb-5 fw-bold">All Classes</h1>
 			<div class="row">
 				<%
 				if (!products.isEmpty()) {
 					for (Product p : products) {
 				%>
-				<div class="col-xl-3 mb-3">
+				<div class="col-xl-3 mb-5">
 					<div class="card">
 						<img class="card-img-top w-100" style="height: 150px"
 							src="http://localhost:8080/dance_company/images/<%=p.getImage()%>"
@@ -63,12 +63,10 @@ if (cart_list != null) {
 								Teacher:
 								<%=p.getTeacher()%></div>
 							<div class="mt-auto flex-row justify-content-between">
-								<a class="btn btn-dark" href="add-to-cart?id=<%=p.getId()%>">Add
-									to Cart </a> 
-								<a class="btn btn-primary"
-									href="detail?id=<%=p.getId()%>">Book the class</a>
+								<%-- <a class="btn btn-dark text-right" href="add-to-cart?id=<%=p.getId()%>">View Details</a>  --%>
+								<a class="btn btn-primary" href="detail?id=<%=p.getId()%>">View
+									Details</a>
 							</div>
-
 						</div>
 					</div>
 				</div>
