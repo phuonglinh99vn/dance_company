@@ -10,6 +10,7 @@ public class Product {
 	public String level;
 	public String teacher;
 	public String image;
+	public String time;
 	
 	public Product() {
 	}
@@ -20,8 +21,25 @@ public class Product {
 		this.level = level;
 	
 	}
-
-
+	
+	public Product(int id, String time) {
+		super();
+		this.id = id;
+		this.time = time;
+	
+	}
+	
+	
+	
+	public Product(int id, String name, String level, String teacher, String image, String time) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.level = level;
+		this.teacher = teacher;
+		this.image = image;
+		this.time = time;
+	}
 
 	public Product(int id, String name, String level, String teacher, String image) {
 		super();
@@ -87,6 +105,14 @@ public class Product {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	@Override

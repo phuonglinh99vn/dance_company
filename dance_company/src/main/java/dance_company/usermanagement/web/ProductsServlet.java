@@ -3,6 +3,7 @@ package dance_company.usermanagement.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +16,7 @@ import connection.DbCon;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
-/**
- *
- * @author trinh
- */
+
 @WebServlet("/detail")
 public class ProductsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,11 +27,10 @@ public class ProductsServlet extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			ProductDao pdao = new ProductDao(DbCon.getConnection());
 			Product p = pdao.getSingleProduct(id);
+			List<Product> s = pdao.getSchedule(id);
 			
 			request.setAttribute("detail", p);
-//			request.setAttribute("name", p.getName());
-//			request.setAttribute("level", p.getLevel());
-//			request.setAttribute("teacher", p.getTeacher());
+			request.setAttribute("schedule", s);
 			request.getRequestDispatcher("single-product.jsp").forward(request, response);
 		}
 		
