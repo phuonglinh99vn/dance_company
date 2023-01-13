@@ -4,15 +4,13 @@
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 user auth = (user) request.getSession().getAttribute("auth");
 if (auth != null) {
 	request.setAttribute("person", auth);
 }
-ProductDao pd = new ProductDao(DbCon.getConnection());
-List<Product> products = pd.getAllProducts();
-ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+ArrayList<CartServlet> cart_list = (ArrayList<CartServlet>) session.getAttribute("cart-list");
 if (cart_list != null) {
 	request.setAttribute("cart_list", cart_list);
 }
@@ -43,39 +41,28 @@ if (cart_list != null) {
 	<jsp:include page="modules/navbar.jsp" />
 	<section class="bg-custom-dark pt-3 pb-5 shadow-sm">
 		<div class="container">
-			<h1 class="card-header text-center text-white mt-5 mb-5 fw-bold">All Classes</h1>
+			<h1 class="card-header text-center text-white mt-5 mb-5 fw-bold">All
+				Classes</h1>
 			<div class="row">
-				<%
-				if (!products.isEmpty()) {
-					for (Product p : products) {
-				%>
-				<div class="col-xl-3 mb-5">
-					<div class="card">
-						<img class="card-img-top w-100" style="height: 150px"
-							src="http://localhost:8080/dance_company/images/<%=p.getImage()%>"
-							alt="Card Image" />
-						<div class="card-body d-flex flex-column">
-							<div class="card-title fw-bold fs-4"><%=p.getName()%></div>
-							<div class="card-text">
-								Level:
-								<%=p.getLevel()%></div>
-							<div class="mb-4 cart-text">
-								Teacher:
-								<%=p.getTeacher()%></div>
-							<div class="mt-auto flex-row justify-content-between">
-								<%-- <a class="btn btn-dark text-right" href="add-to-cart?id=<%=p.getId()%>">View Details</a>  --%>
-								<a class="btn btn-primary" href="detail?id=<%=p.getId()%>">View
-									Details</a>
+				<c:forEach var="product" items="${products}">
+					<div class="col-xl-3 mb-5">
+						<div class="card">
+							<img class="card-img-top w-100" style="height: 150px"
+								src="http://localhost:8080/dance_company/images/${product.image}"
+								alt="Card Image" />
+							<div class="card-body d-flex flex-column">
+								<div class="card-title fw-bold fs-4">${product.name}</div>
+								<div class="card-text">Level: ${product.level}</div>
+								<div class="mb-4 cart-text">Teacher: ${product.teacher}</div>
+								<div class="mt-auto flex-row justify-content-between">
+									<%-- <a class="btn btn-dark text-right" href="add-to-cart?id=<%=p.getId()%>">View Details</a>  --%>
+									<a class="btn btn-primary" href="detail?id=${product.id}">View
+										Details</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<%
-				}
-				} else {
-				out.println("There are no classes available");
-				}
-				%>
+				</c:forEach>
 			</div>
 		</div>
 	</section>

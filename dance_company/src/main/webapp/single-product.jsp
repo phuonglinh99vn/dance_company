@@ -62,18 +62,17 @@
 							<label for="timetable">Select Time: </label> <select
 								name="timetable" id="timetable" class="form-select"
 								style="width: 50%" aria-label=".form-select">
-								<option selected>13/01/2023</option>
 								<c:forEach var="item" items="${schedule}">
-									<option value="${item.time}"><c:out
+									<option value="${item.id}"><c:out
 											value="${item.time}" /></option>
 								</c:forEach>
 							</select>
 						</div>
 						<hr style="color: #C69749; opacity: 1">
-						<button class="btn btn-warning float-end d-flex align-items-center" type="submit">
+						<a class="btn btn-warning float-end d-flex align-items-center" href="AddToCartServlet?id=1%>">
 							<i class="fa-solid fa-cart-shopping fs-4 me-2"></i> 
 							<span>Add to Cart</span>
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>

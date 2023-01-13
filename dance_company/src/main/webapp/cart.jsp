@@ -1,30 +1,38 @@
-<%@page import="dance_company.connection.DbCon"%>
+<%@page import="connection.DbCon"%>
 <%@page import="dance_company.usermanagement.dao.ProductDao"%>
-<%@page import="cn.techtutorial.model.*"%>
+<%@page import="dance_company.usermanagement.model.*"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
 <%
-User auth = (User) request.getSession().getAttribute("auth");
+p
+
+user auth = (user) request.getSession().getAttribute("auth");
 if (auth != null) {
-    request.setAttribute("person", auth);
+	request.setAttribute("person", auth);
 }
 ProductDao pd = new ProductDao(DbCon.getConnection());
 List<Product> products = pd.getAllProducts();
-ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+ArrayList<CartServlet> cart_list = (ArrayList<CartServlet>) session.getAttribute("cart-list");
 if (cart_list != null) {
 	request.setAttribute("cart_list", cart_list);
 }
 %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="/includes/head.jsp"%>
-<title>E-Commerce Cart</title>
-</head>
-<body>
-	<%@include file="/includes/navbar.jsp"%>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap  -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
 
 	<div class="container">
 		<div class="card-header my-3">All Products</div>
