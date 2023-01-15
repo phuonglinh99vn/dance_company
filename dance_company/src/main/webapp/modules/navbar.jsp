@@ -31,8 +31,8 @@
 		</div>
 		<div class="d-flex align-items-center">
 			<jsp:include page="userNavDropdown.jsp" />
-			<a class="nav-link ms-3" href="#" style="display: inline-block">
-				<i class="fa-solid fa-cart-shopping"></i>
+			<a class="nav-link ms-3" href="CartServlet?action=view_cart" style="display: inline-block">
+				<i class="fa-solid fa-cart-shopping">Cart(${empty sessionScope.cart? 0: sessionScope.cart.size()})</i>
 			</a>
 		</div>
 	</div>
