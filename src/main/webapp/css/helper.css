@@ -1,0 +1,74 @@
+@charset "ISO-8859-1";
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: #000 !important;
+}
+
+
+.mt-100 {
+	margin-top: 100px;
+}
+
+.mb-100 {
+	margin-bottom: 100px;
+}
+
+.login-btn {
+	background-color: #C69749;
+	border-color: #C69749;
+}
+
+.login-btn:hover {
+	background-color: #735F32;
+	border-color: #735F32;
+}
+
+/* Navbar */
+.fa-cart-shopping {
+	font-size: 1.8rem;
+}
+
+/* Index */
+.level-section {
+	border: 5px #735F32 solid;
+	border-radius: 2rem;
+}
+
+.level-card {
+	height: 12rem; 
+	width: 18rem;
+	border-radius: 1.01rem;
+}
+
+
+/* Footer Section */
+footer {
+	background: #C69749;
+}
+
+.footer-text {
+	color: #000000;
+}
+
+.footer-link {
+	cursor: pointer;
+	color: #000;
+	text-decoration: none;
+}
+
+.footer-link:hover {
+	color: #fff;
+}
+
+i:hover {
+	cursor: pointer !important;
+}
+
+.copyright-text {
+	font-size: 10px;
+}
+
+.subscribe-btn {
+	color: #735F32;
+}
