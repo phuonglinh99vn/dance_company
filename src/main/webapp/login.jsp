@@ -19,8 +19,6 @@
 <title>Login</title>
 </head>
 <body>
-	
-
 	<div class="container">
 		<div class="card w-50 mx-auto my-5">
 			<div class="card-header text-center">User Login</div>
@@ -41,6 +39,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
