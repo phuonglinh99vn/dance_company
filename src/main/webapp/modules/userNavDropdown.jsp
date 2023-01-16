@@ -15,7 +15,6 @@
 				data-bs-toggle="modal">Sign Up</a></li>
 		</ul>
 		<jsp:include page="login.jsp" />
-		<%-- <jsp:include page="register.jsp" /> --%>
 	</c:if>
 	<c:if test="${sessionScope.name != null}">
 		<a class="btn btn-danger dropdown-toggle" href="#" role="button"
@@ -25,6 +24,5 @@
 		<ul class="dropdown-menu">
 			<li><a class="dropdown-item" href="LogoutServlet">Log Out</a></li>
 		</ul>
-		<%-- <jsp:include page="logout.jsp" /> --%>
 	</c:if>
 </div>
