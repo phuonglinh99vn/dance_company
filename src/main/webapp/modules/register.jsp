@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
+<!--  Register Button -->
+<a type="button" class="btn btn-primary me-2"
+	data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</a>
+
 <!-- Register Modal -->
 <div class="modal fade" id="signupModal" tabindex="-1"
 	aria-labelledby="signupModalLabel" aria-hidden="true">

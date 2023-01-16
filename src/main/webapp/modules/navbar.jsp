@@ -31,8 +31,13 @@
 		</div>
 		<div class="d-flex align-items-center">
 			<jsp:include page="userNavDropdown.jsp" />
-			<a class="nav-link ms-3" href="#" style="display: inline-block">
-				<i class="fa-solid fa-cart-shopping"></i>
+			<a class="nav-link ms-3" href="CartServlet?action=view_cart"
+				style="display: inline-block"> <i
+				class="fa-solid fa-cart-shopping position-relative"> <span
+					class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+					style="font-size: 0.50em">${empty sessionScope.cart? 0 : sessionScope.cart.size()}</span>
+
+			</i>
 			</a>
 		</div>
 	</div>

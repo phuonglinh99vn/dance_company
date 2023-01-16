@@ -35,7 +35,6 @@
 				<p class="text-center">
 					Not a member yet? <a href="#signupModal" data-bs-toggle="modal">Sign
 						Up</a>
-					<jsp:include page="register.jsp" />
 				</p>
 
 			</div>
