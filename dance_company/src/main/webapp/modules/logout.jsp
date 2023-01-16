@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<button type="button" class="btn btn-danger me-2" data-bs-toggle="modal"
-	data-bs-target="#logoutModal">${sessionScope.name}</button>
-
 <div class="modal fade" id="logoutModal" tabindex="-1"
 	aria-labelledby="loginModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
