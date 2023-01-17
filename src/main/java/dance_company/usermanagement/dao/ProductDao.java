@@ -70,6 +70,32 @@ public class ProductDao {
 
 	        return row;
 	    }
+	 public Product getSingleSchedule(int id) {
+		 Product row = null;
+	        try {
+	        	query = "SELECT id, name, level, teacher, image, time from dance_class\r\n"
+	            		+ "join schedule on dance_class.id = schedule.class_id where id=? ";
+
+	            pst = this.con.prepareStatement(query);
+	            pst.setInt(1, id);
+	            ResultSet rs = pst.executeQuery();
+
+	            while (rs.next()) {
+	            	row = new Product();
+	                row.setId(rs.getInt("id"));
+	                row.setName(rs.getString("name"));
+	                row.setTeacher(rs.getString("teacher"));
+	                row.setLevel(rs.getString("level"));
+	                row.setImage(rs.getString("image"));
+	                row.setTime(rs.getString("time"));
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            System.out.println(e.getMessage());
+	        }
+
+	        return row;
+	    }
 
 //	public double getTotalCartPrice(ArrayList<Cart> cartList) {
 //	    double sum = 0;

@@ -120,9 +120,4 @@ public class Product {
 		return "Product [id=" + id + ", name=" + name + ", level=" + level + ", teacher=" + teacher + ", image="
 				+ image + "]";
 	}
-
-	
-	
-	
-	
 }

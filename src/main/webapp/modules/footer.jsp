@@ -7,15 +7,17 @@
 			<div class="col-3">
 				<img src="images/logo.png" style="width: 50px" />
 				<p class="copyright-text text-uppercase mt-3">
-					Copyright &copy; 2023 <b>The Dance Company</b>.<br>
-					All Rights Reserved.
+					Copyright &copy; 2023 <b>The Dance Company</b>.<br> All Rights
+					Reserved.
 				</p>
 			</div>
 			<div class="col-3">
-				<p style="color: #282A3A" class="fw-bold">Get the lastest dance<br>
-					content & news
+				<p style="color: #282A3A" class="fw-bold">
+					Get the lastest dance<br> content & news
 				</p>
-				<p>Email</p>
+				<form>
+					<input class="form-control subscribe-input fs-4 mb-3" placeholder="Email" />
+				</form>
 				<button class="btn btn-outline-dark text-uppercase">Subscribe</button>
 			</div>
 			<div class="col-3 d-flex flex-column footer-text">

@@ -1,82 +1,93 @@
-<%@page import="connection.DbCon"%>
-<%@page import="dance_company.usermanagement.dao.ProductDao"%>
-<%@page import="dance_company.usermanagement.model.*"%>
-<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<%
-p
+<t:template title="The Dance Company">
+	<jsp:attribute name="body">
+	
+	<section class="container">
+		<h1 class="text-center text-white mb-5 mt-5">My Cart</h1>
+	
+	<%-- <table width="75%" border="1">
+		
+			<c:forEach var="cartItem" items="${sessionScope.cart }">
+				<li>${cartItem.name}
+				
+				
+				<li>
+				
+				
+				
+				<li>${cartItem.teacher}
+				
+				
+				<li>
+				
+				
+				
+				<li>${cartItem.level}
+				
+				
+				<li>
+				
+				
+				
+				<li>${cartItem.time}
+				
+				
+				<li>
+				<a href="CartServlet?action=remove&id=${cartItem.id}">Remove</a>
+			
+			
+			
+			</c:forEach>
+			<tr>
+				<td colspan="2"></td>
+				<td></td>
+			</tr>
+	</table>
+	<input type="button" value="Submit Cart"
+			href="CartServlet?action=submmit_card" /> --%>
+			
+	<table class="table-info text-white">
+  <thead>
+    <tr>
+      <th scope="col">Class</th>
+      <th scope="col">Price</th>
+      <th scope="col">Total</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+	</section>
+	
 
-user auth = (user) request.getSession().getAttribute("auth");
-if (auth != null) {
-	request.setAttribute("person", auth);
-}
-ProductDao pd = new ProductDao(DbCon.getConnection());
-List<Product> products = pd.getAllProducts();
-ArrayList<CartServlet> cart_list = (ArrayList<CartServlet>) session.getAttribute("cart-list");
-if (cart_list != null) {
-	request.setAttribute("cart_list", cart_list);
-}
-%>
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</jsp:attribute>
+</t:template>
 
-<!-- Bootstrap  -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous" />
 
-	<div class="container">
-		<div class="card-header my-3">All Products</div>
-		<div class="row">
-			<%
-			if (!products.isEmpty()) {
-				for (Product p : products) {
-			%>
-			<div class="col-md-3 my-3">
-				<div class="card w-100">
-					<img class="card-img-top" src="product-image/<%=p.getImage() %>"
-						alt="Card image cap">
-					<div class="card-body">
-						<h5 class="card-title"><%=p.getName() %></h5>
-						<h6 class="price">Price: $<%=p.getPrice() %></h6>
-						<h6 class="category">Category: <%=p.getCategory() %></h6>
-						<div class="mt-3 d-flex justify-content-between">
-							<a class="btn btn-dark" href="add-to-cart?id=<%=p.getId()%>">Add to Cart</a> <a
-								class="btn btn-primary" href="order-now?quantity=1&id=<%=p.getId()%>">Buy Now</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<%
-			}
-			} else {
-			out.println("There is no proucts");
-			}
-			%>
 
-		</div>
-	</div>
 
-	<%@include file="/includes/footer.jsp"%>
-</body>
-</html><%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
 
-</body>
-</html>
+
+
