@@ -1,6 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%
+
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +65,7 @@
 									<option value="${item.id}"><c:out
 											value="${item.time}" /></option>
 								</c:forEach>
+								
 							</select>
 						</div>
 						<hr style="color: #C69749; opacity: 1">
@@ -68,6 +73,8 @@
 							<i class="fa-solid fa-cart-shopping fs-4 me-2"></i> 
 							<span>Add to Cart</span>
 						</a>
+						<div class="text-white">${noti}</div>
+						
 					</div>
 				</div>
 			</div>

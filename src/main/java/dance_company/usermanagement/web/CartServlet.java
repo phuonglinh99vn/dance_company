@@ -40,15 +40,19 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String action = request.getParameter("action");
-		if(action.equalsIgnoreCase("add")) {
-			doGetAdd(request, response);
-		} else if (action.equalsIgnoreCase("view_cart")) {
-			HttpSession session = request.getSession();
-			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");	
-			response.sendRedirect("cart.jsp");
-		} else if (action.equalsIgnoreCase("remove")) {
-			doGetRemove(request, response);
+		try {
+			String action = request.getParameter("action");
+			if(action.equalsIgnoreCase("add")) {
+				doGetAdd(request, response);
+			} else if (action.equalsIgnoreCase("view_cart")) {
+//				HttpSession session = request.getSession();
+//				List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");	
+				response.sendRedirect("cart.jsp");
+			} else if (action.equalsIgnoreCase("remove")) {
+				doGetRemove(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); 
 		}
 	}
 
@@ -60,35 +64,43 @@ public class CartServlet extends HttpServlet {
 	protected void doGetAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try (PrintWriter out = response.getWriter()) {
-			ArrayList<Product> cartList = new ArrayList<>();
+//			ArrayList<Product> cartList = new ArrayList<>();
 			int id = Integer.parseInt(request.getParameter("id"));
 			ProductDao pdao = new ProductDao(DbCon.getConnection());
 			Product p = pdao.getSingleSchedule(id);
 			HttpSession session = request.getSession(false);
 			String url = request.getContextPath();
+			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
 			
-			if (session.getAttribute("cart") == null) {
-				List<Product> cart = new ArrayList<Product>();
+			if ( cart == null) {
+				cart = new ArrayList<Product>();
 				cart.add(p);
 				session.setAttribute("cart", cart);
-				request.getRequestDispatcher("detail?id=" + id).forward(request, response);
+//				request.getRequestDispatcher("detail?id=" + id).forward(request, response);
+				response.sendRedirect("detail?id=" + id);
 			}
-				else {
-				List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");	
+				else {					
 				boolean exist = false;
 				
 				for (Product c : cart) {
-					if (c.getTime() == p.getTime()) {
+					if (c.getTime().equals(p.getTime())) {
 						exist = true;
 //						session.setAttribute("cart", cart);
 //						response.sendRedirect("BookingServlet");
+						String noti = "You have another at same time";
+						request.setAttribute("noti", noti);
+//						response.sendRedirect("detail?id=" + id);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("detail?id=" + id);
+						dispatcher.forward(request, response);
 					}
 				}
 
-				if (exist = false) {
+				if (exist == false) {
 					cart.add(p);	
-					session.setAttribute("cart", cart);
-					request.getRequestDispatcher("detail?id=" + id).forward(request, response);
+//					session.setAttribute("cart", cart);
+//					request.getRequestDispatcher("detail?id=" + id).forward(request, response);
+					System.out.println("New Item");
+					response.sendRedirect("detail?id=" + id);
 				}
 				
 			}
@@ -107,26 +119,31 @@ public class CartServlet extends HttpServlet {
 		
 		try (PrintWriter out = response.getWriter()) {
 			int id = Integer.parseInt(request.getParameter("id"));
-			ProductDao pdao = new ProductDao(DbCon.getConnection());
-			Product p = pdao.getSingleSchedule(id);
+//			ProductDao pdao = new ProductDao(DbCon.getConnection());
+//			Product p = pdao.getSingleSchedule(id);
 			HttpSession session = request.getSession();
-			String url = request.getContextPath();
 			
+			Product b = null;;
 			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
-			cart.remove(p);
+			for (Product c : cart) {
+				if (c.getId() == id) {
+					b = c;
+				}
+				
+			}
+			cart.remove(b);
 			session.setAttribute("cart", cart);
-//			response.sendRedirect("cart.jsp");
-			request.getRequestDispatcher("CartServlet?action=view_cart").forward(request, response);
+			response.sendRedirect("CartServlet?action=view_cart");
+//			request.getRequestDispatcher("CartServlet?action=view_cart").forward(request, response);
 
 			
-		}
-
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
 	}
+}
 	
 	
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -169,4 +186,3 @@ public class CartServlet extends HttpServlet {
 //			e.printStackTrace();
 //		}
 //	}
-}
