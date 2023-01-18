@@ -1,0 +1,42 @@
+footer {
+	background: #C69749;
+}
+
+.footer-text {
+	color: #000000;
+}
+
+.footer-link {
+	cursor: pointer;
+	color: #000;
+	text-decoration: none;
+}
+
+.footer-link:hover {
+	color: #fff;
+}
+
+i:hover {
+	cursor: pointer !important;
+}
+
+.copyright-text {
+	font-size: 10px;
+}
+
+.subscribe-input {
+	padding: 0;
+	border: 0;
+	box-shadow: none !important;
+	background-color: transparent !important;
+	border: 0;
+}
+
+.subscribe-input::placeholder {
+	color: #282A3A !important;
+	font-weight: bold;
+}
+
+.subscribe-btn {
+	color: #735F32;
+}

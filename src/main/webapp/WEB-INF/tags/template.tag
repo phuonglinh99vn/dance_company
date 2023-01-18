@@ -23,6 +23,9 @@
 <link rel="stylesheet"
 	href="http://localhost:8080/dance_company/css/helper.css"
 	type="text/css" />
+<link rel="stylesheet"
+	href="http://localhost:8080/dance_company/css/footer.css"
+	type="text/css" />
 <jsp:invoke fragment="header" />
 </head>
 <body>

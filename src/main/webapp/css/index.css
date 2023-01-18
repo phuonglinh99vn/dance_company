@@ -1,0 +1,78 @@
+.level-section {
+	border: 5px #735F32 solid;
+	border-radius: 2rem;
+}
+
+.level-card {
+	position: relative;
+	height: 12rem;
+	width: 18rem;
+	border-radius: 1.01rem;
+	height: 12rem;
+}
+
+.level-card .brand-new {
+	background-image: url("../images/level-card-1.jpg");
+	background-size: contain;
+	border-radius: inherit;
+}
+
+.level-card .beginner {
+	background-image: url("../images/level-card-2.jpg");
+	background-size: contain;
+	border-radius: inherit;
+}
+
+.level-card .intermediate {
+	background-image: url("../images/level-card-3.jpg");
+	background-size: contain;
+	border-radius: inherit;
+}
+
+.level-card .advanced {
+	background-image: url("../images/level-card-4.jpg");
+	background-size: contain;
+	border-radius: inherit;
+}
+
+.level-card-body h5{
+	position: relative;
+	z-index: 10;
+	transition: 0.5s;
+}
+
+.level-card-face {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	transition: 0.5s;
+}
+
+.level-card:hover .level-card-face {
+	padding: 0;
+	margin: 0;
+	height: 0;
+	font-size: 0;
+}
+
+.level-card:hover .level-card-body {
+	color: #C69749;
+}
+
+.style-image {
+	height: 100%;
+	overflow: hidden;
+}
+
+.style-image img{
+	border-radius: inherit;
+	height: 100%;
+	transition: transform .5s ease;
+}
+
+.style-image:hover img {
+	transform: scale(1.2);
+}
