@@ -31,158 +31,142 @@ public class CartServlet extends HttpServlet {
 	 */
 	public CartServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			String action = request.getParameter("action");
-			if(action.equalsIgnoreCase("add")) {
+			if (action.equalsIgnoreCase("add")) {
 				doGetAdd(request, response);
 			} else if (action.equalsIgnoreCase("view_cart")) {
-//				HttpSession session = request.getSession();
-//				List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");	
 				response.sendRedirect("cart.jsp");
 			} else if (action.equalsIgnoreCase("remove")) {
 				doGetRemove(request, response);
+			} else if (action.equalsIgnoreCase("submit_cart")) {
+				doGetSubmitCart(request, response);
 			}
 		} catch (Exception e) {
-			e.printStackTrace(); 
+
+			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	
-	protected void doGetAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGetAdd(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try (PrintWriter out = response.getWriter()) {
-//			ArrayList<Product> cartList = new ArrayList<>();
-			int id = Integer.parseInt(request.getParameter("id"));
+			int id = Integer.parseInt(request.getParameter("schedule"));
+			int id1 = Integer.parseInt(request.getParameter("productId"));
 			ProductDao pdao = new ProductDao(DbCon.getConnection());
 			Product p = pdao.getSingleSchedule(id);
 			HttpSession session = request.getSession(false);
-			String url = request.getContextPath();
+			String[] url = request.getHeader("referer").split("/");
+
 			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
-			
-			if ( cart == null) {
+
+			if (cart == null) {
 				cart = new ArrayList<Product>();
 				cart.add(p);
 				session.setAttribute("cart", cart);
-//				request.getRequestDispatcher("detail?id=" + id).forward(request, response);
-				response.sendRedirect("detail?id=" + id);
-			}
-				else {					
+				response.sendRedirect(url[url.length - 1]);
+
+			} else {
 				boolean exist = false;
-				
+
 				for (Product c : cart) {
 					if (c.getTime().equals(p.getTime())) {
 						exist = true;
 //						session.setAttribute("cart", cart);
 //						response.sendRedirect("BookingServlet");
-						String noti = "You have another at same time";
+						String noti = "You have another class at the same time. \n Please choose another.";
 						request.setAttribute("noti", noti);
-//						response.sendRedirect("detail?id=" + id);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("detail?id=" + id);
+						RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length - 1]);
 						dispatcher.forward(request, response);
 					}
 				}
 
 				if (exist == false) {
-					cart.add(p);	
-//					session.setAttribute("cart", cart);
-//					request.getRequestDispatcher("detail?id=" + id).forward(request, response);
-					System.out.println("New Item");
-					response.sendRedirect("detail?id=" + id);
+					cart.add(p);
+					session.setAttribute("cart", cart);
+					request.getRequestDispatcher(url[url.length - 1]).forward(request, response);
+//					System.out.println("New Item");
+//					response.sendRedirect("BookingServlet");
 				}
-				
+
 			}
-			
-			
+
 		}
 
 		catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
-	protected void doGetRemove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	protected void doGetRemove(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try (PrintWriter out = response.getWriter()) {
 			int id = Integer.parseInt(request.getParameter("id"));
-//			ProductDao pdao = new ProductDao(DbCon.getConnection());
-//			Product p = pdao.getSingleSchedule(id);
+
 			HttpSession session = request.getSession();
-			
-			Product b = null;;
+
+			Product b = null;
+			;
 			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
 			for (Product c : cart) {
 				if (c.getId() == id) {
 					b = c;
 				}
-				
+
 			}
 			cart.remove(b);
 			session.setAttribute("cart", cart);
 			response.sendRedirect("CartServlet?action=view_cart");
 //			request.getRequestDispatcher("CartServlet?action=view_cart").forward(request, response);
 
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+	}
+
+	protected void doGetSubmitCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try (PrintWriter out = response.getWriter()) {
+			HttpSession session = request.getSession(false);
+			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
+
+			// create order - return order Id
+			int userId = (int) session.getAttribute("userId");
+			OrderDAO orderDAO = new OrderDAO(DbCon.getConnection());
+			Order order = new Order(userId, null);
+			int orderId = orderDAO.addOrder(order);
+			OrderDetailsDAO oDAO = new OrderDetailsDAO(DbCon.getConnection());
+
+			// create orderDetail
+			for (Product product : cart) {
+				OrderDetails orderDetails = new OrderDetails(orderId, product.getId());
+				oDAO.addOrderDetails(orderDetails);
+			}
+
+			session.removeAttribute("cart");
+			response.sendRedirect("CartServlet?action=view_cart");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+//		try (PrintWriter out = response.getWriter()) {
+//			String id = request.getParameter("schedule");
+		int id = Integer.parseInt(request.getParameter("schedule"));
+		int id1 = Integer.parseInt(request.getParameter("productId"));
+		doGetAdd(request, response);
 	}
 }
-	
-	
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		try (PrintWriter out = response.getWriter()) {
-//			ArrayList<Product> cartList = new ArrayList<>();
-//			int id = Integer.parseInt(request.getParameter("id"));
-//			ProductDao pdao = new ProductDao(DbCon.getConnection());
-//			Product p = pdao.getSingleSchedule(id);
-//			HttpSession session = request.getSession();
-//
-//			ArrayList<Product> cart_list = (ArrayList<Product>) session.getAttribute("cart-list");
-//			if (cart_list == null) {
-//				cartList.add(p);
-//				session.setAttribute("cart-list", cartList);
-//				response.sendRedirect("cart.jsp");
-//			} else {
-//				cartList = cart_list;
-//
-//				boolean exist = false;
-//				for (Product c : cart_list) {
-//					if (c.getTime() == p.getTime()) {
-//						exist = true;
-//						out.println(
-//								"<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
-//					}
-//				}
-//
-//				if (!exist) {
-//					cartList.add(p);				
-//				}
-//				session.setAttribute("cart-list", cartList);
-//				response.sendRedirect("cart.jsp");
-//			}
-//			
-//		}
-//
-//		catch (ClassNotFoundException | SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}

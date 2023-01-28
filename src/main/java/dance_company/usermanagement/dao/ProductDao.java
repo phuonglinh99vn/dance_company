@@ -73,8 +73,8 @@ public class ProductDao {
 	 public Product getSingleSchedule(int id) {
 		 Product row = null;
 	        try {
-	        	query = "SELECT id, name, level, teacher, image, time from dance_class\r\n"
-	            		+ "join schedule on dance_class.id = schedule.class_id where id=? ";
+	        	query = "SELECT idschedule, name, level, teacher, image, time from dance_class\r\n"
+	            		+ "join schedule on dance_class.id = schedule.class_id where idschedule=? ";
 
 	            pst = this.con.prepareStatement(query);
 	            pst.setInt(1, id);
@@ -82,7 +82,7 @@ public class ProductDao {
 
 	            while (rs.next()) {
 	            	row = new Product();
-	                row.setId(rs.getInt("id"));
+	                row.setId(rs.getInt("idschedule"));
 	                row.setName(rs.getString("name"));
 	                row.setTeacher(rs.getString("teacher"));
 	                row.setLevel(rs.getString("level"));
@@ -152,8 +152,8 @@ public class ProductDao {
 	public List<Product> getSchedule(int id) {
 	    List<Product> schedule = new ArrayList<>();
 	    try {
-            query = "SELECT id, name, level, teacher, image, time from dance_class\r\n"
-            		+ "join schedule on dance_class.id = schedule.class_id where id=? ";
+            query = "SELECT idschedule, name, level, teacher, image, time from dance_class\r\n"
+            		+ "	join schedule on dance_class.id = schedule.class_id where id=? ";
 
             pst = this.con.prepareStatement(query);
             pst.setInt(1, id);
@@ -162,7 +162,7 @@ public class ProductDao {
             while (rs.next()) {
             	Product row = new Product();
             	row = new Product();
-                row.setId(rs.getInt("id"));
+                row.setId(rs.getInt("idschedule"));
                 row.setName(rs.getString("name"));
                 row.setTeacher(rs.getString("teacher"));
                 row.setLevel(rs.getString("level"));

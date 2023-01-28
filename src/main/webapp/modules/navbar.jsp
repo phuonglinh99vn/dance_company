@@ -26,6 +26,8 @@
 						href="/dance_company/BookingServlet">Book A Class</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/dance_company/ContactUsServlet">Contact Us</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/dance_company/OrderServlet?action=view_timetable">View your classes</a></li>
 				</ul>
 			</div>
 		</div>

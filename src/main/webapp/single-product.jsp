@@ -9,7 +9,9 @@
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col me-5">
-					<img src="http://localhost:8080/dance_company/images/${detail.image}" class="w-100 rounded" />
+					<img
+							src="http://localhost:8080/dance_company/images/${detail.image}"
+							class="w-100 rounded" />
 				</div>
 				<div class="col">
 					<div class="text-white">
@@ -28,22 +30,27 @@
 							we encourage you to enroll in an Introduction to Ballet short
 							course with us prior to attending the Beginner Ballet class.
 						
-							
 							<p>Please discuss with your teacher if you feel you are ready
 							to progress up to the next level.
-						
 							
 							<hr style="color: #C69749; opacity: 1">
+						<form action="CartServlet" method="post">
+						<input type="hidden" name="productId" value="${detail.id}" />
 						<div class="d-flex justify-content-between mb-3">
-							<label for="timetable">Select Time: </label> <select name="timetable" id="timetable" class="form-select" style="width: 50%" aria-label=".form-select">
-								<c:forEach var="item" items="${schedule}">
-									<option value="${item.id}"><c:out value="${item.time}" /></option>
-								</c:forEach>
-								
+							<label for="timetable">Select Time: </label> <select
+										name="schedule" id="scheduleId" class="form-select"
+										style="width: 50%" aria-label=".form-select">
+								<c:forEach var="schedule" items="${schedule}">
+									<option name="scheduleId" value="${schedule.id}">${schedule.time}</option>
+								</c:forEach>	
 							</select>
+							<button type="submit">Submit </button>
+						</a>
 						</div>
+						</form>
 						<hr style="color: #C69749; opacity: 1">
-						<a class="btn btn-warning float-end d-flex align-items-center" href="CartServlet?action=add&id=${detail.id}">
+  						<a class="btn btn-warning float-end d-flex align-items-center"
+								href="CartServlet?action=add&id=?">
 							<i class="fa-solid fa-cart-shopping fs-4 me-2"></i> 
 							<span>Add to Cart</span>
 						</a>

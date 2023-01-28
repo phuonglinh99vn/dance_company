@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,16 +26,23 @@ public class LoginServlet extends HttpServlet {
 		try (PrintWriter out = response.getWriter()) {
 			String email = request.getParameter("login-email");
 			String password = request.getParameter("login-password");
-			String urlString = request.getContextPath();
-
+			String[] url = request.getHeader("referer").split("/");
+			HttpSession session = request.getSession(false);
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			user user = udao.userLogin(email, password);
 			if (user != null) {
-				HttpSession session = request.getSession(false);
+				
 				session.setAttribute("name", user.getName());
-				response.sendRedirect(urlString);
+				session.setAttribute("userId", user.getId());
+				response.sendRedirect(url[url.length-1]);
+//				RequestDispatcher dispatcher = request.getRequestDispatcher(urlString);
+//				dispatcher.forward(request, response);
 			} else {
-				out.println("Your email or password is incorrect");
+				String warn = "Your email or passowrd is incorrect!";
+				session.setAttribute("warn", warn);
+				
+//				RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length-1]);
+//				dispatcher.forward(request, response);
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

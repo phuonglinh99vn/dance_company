@@ -17,7 +17,7 @@
 						<label>Email</label> <input type="email" class="form-control"
 							name="login-email" id="email" aria-describedby="Email"
 							placeholder="user@mail.com" required />
-						<div class="valid-feedback">Looks good!</div>
+						<div class="valid-feedback">${warn}</div>
 					</div>
 					<div class="mb-3">
 						<label>Password</label> <input type="password"

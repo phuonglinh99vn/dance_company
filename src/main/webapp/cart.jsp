@@ -141,7 +141,7 @@
                     <h5 class="text-uppercase">Total price</h5>
                     <h5>137.00</h5>
                   </div>
-                  <a href="CartServlet?action=submmit_card" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Submit Cart</a>
+                  <a href="CartServlet?action=submit_cart" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Submit Cart</a>
                 </div>
               </div>
             </div>
