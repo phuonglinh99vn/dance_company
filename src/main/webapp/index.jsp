@@ -191,9 +191,9 @@
 				<div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img class="m-3" src="images/testimony_face_1.jpg" style="border-radius: 50%; width: 30rem" />
+							<img class="m-3" src="images/testimony-image-1.jpg" style="border-radius: 50%; width: 30rem; height: 20rem" />
 							<div class="client_detail">
-								<h3>John</h3>
+								<h3>Jerome</h3>
 								<p class="custom_heading-text">One of the best experience
 									that I've ever had. The teaching quality is beyond excellent.
 									Lessons are well structured and everyday at The Dance Company
@@ -203,9 +203,9 @@
 							</div>
 						</div>
 						<div class="carousel-item">
-							<img class="m-3" src="images/testimony_face_2.jpg" style="border-radius: 50%; width: 30rem" />
+							<img class="m-3" src="images/testimony-image-2.jpg" style="border-radius: 50%; width: 30rem; height: 20rem" />
 							<div class="client_detail">
-								<h3>Anna</h3>
+								<h3>Michelle</h3>
 								<p class="custom_heading-text">The Dance Company is the best
 									place to experience world-class teaching quality and
 									facilities. My journey starts with no skills and techniques on
