@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<div class="modal fade" id="loginModal" tabindex="-1"
+<div class="modal hide fade" id="loginModal" tabindex="-1"
 	aria-labelledby="loginModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -14,13 +14,13 @@
 				<form action="user-login" method="POST" novalidate
 					class="validated-form" id="loginForm">
 					<div class="mb-3 flex justify-content-center">
-						<label>Email</label> <input type="email" class="form-control"
+						<label class="form-label" for="email">Email</label> <input type="email" class="form-control"
 							name="login-email" id="email" aria-describedby="Email"
 							placeholder="user@mail.com" required />
 						<div class="valid-feedback">${warn}</div>
 					</div>
 					<div class="mb-3">
-						<label>Password</label> <input type="password"
+						<label class="form-label" for="password">Password</label> <input type="password"
 							class="form-control" name="login-password" id="password"
 							minlength="6" maxlength="32"
 							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])((?=.*\W)|(?=.*_))^[^ ]+$"

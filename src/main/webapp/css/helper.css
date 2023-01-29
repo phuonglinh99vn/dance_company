@@ -13,12 +13,12 @@ body {
 	margin-bottom: 100px;
 }
 
-.login-btn {
+.login-btn, .register-btn {
 	background-color: #C69749;
 	border-color: #C69749;
 }
 
-.login-btn:hover {
+.login-btn:hover, .register-btn:hover {
 	background-color: #735F32;
 	border-color: #735F32;
 }

@@ -14,7 +14,8 @@
 			<li><a href="#signupModal" class="dropdown-item"
 				data-bs-toggle="modal">Sign Up</a></li>
 		</ul>
-		<jsp:include page="login.jsp" />
+		<jsp:include page="/modules/login.jsp" />
+		<jsp:include page="/modules/register.jsp" />
 	</c:if>
 	<c:if test="${sessionScope.name != null}">
 		<a class="btn btn-danger dropdown-toggle" href="#" role="button"
