@@ -26,6 +26,8 @@
 						href="/dance_company/BookingServlet">Book A Class</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/dance_company/ContactUsServlet">Contact Us</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/dance_company/UserServlet?action=list">Admin Portal</a></li>
 				</ul>
 			</div>
 		</div>

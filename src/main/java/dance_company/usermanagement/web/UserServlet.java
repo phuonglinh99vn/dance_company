@@ -1,6 +1,7 @@
 package dance_company.usermanagement.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dance_company.usermanagement.dao.UserDAO2;
+import connection.DbCon;
+import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
 /**
@@ -21,15 +23,15 @@ import dance_company.usermanagement.model.*;
  * @email Ramesh Fadatare
  */
 
-@WebServlet("/")
+@WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private UserDAO2 userDAO;
+    private UserDAO userDAO;
 
     public void init() {
-        userDAO = new UserDAO2();
+        userDAO = new UserDAO();
     }
-
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         doGet(request, response);
@@ -37,72 +39,76 @@ public class UserServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String action = request.getServletPath();
-
+    	String action = request.getParameter("action");
+        
         try {
             switch (action) {
-////                case "/new":
-////                    showNewForm(request, response);
-////                    break;
-//                case "/insert":
-//                    insertUser(request, response);
+//                case "/new":
+//                    showNewForm(request, response);
 //                    break;
-////                case "/delete":
-////                    deleteUser(request, response);
-////                    break;
-////                case "/edit":
-////                    showEditForm(request, response);
-////                    break;
-////                case "/update":
-////                    updateUser(request, response);
-////                    break;
-////                default:
-////                    listUser(request, response);
-////                    break;
+                case "/insert":
+                    insertUser(request, response);
+                    break;
+                case "delete":
+                    deleteUser(request, response);
+                    break;
+//                case "/edit":
+//                    showEditForm(request, response);
+//                    break;
+                case "/update":
+                    updateUser(request, response);
+                    break;
+                case "list":
+                    listUser(request, response);
+                    break;
             }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
+        } catch (Exception e) {
+//            throw new ServletException(ex);
+        	e.printStackTrace();
         }
     }
 
     private void listUser(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException, ServletException {
-        List < user > listUser = userDAO.selectAllUsers();
+    throws SQLException, IOException, ServletException, ClassNotFoundException{
+    	try (PrintWriter out = response.getWriter()) {
+    	UserDAO udao = new UserDAO(DbCon.getConnection());	
+    	List<user> listUser = udao.selectAllUsers();
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
         dispatcher.forward(request, response);
+    	
+    	} catch (ClassNotFoundException|SQLException e) {
+    		e.printStackTrace();
+    		}
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
-        dispatcher.forward(request, response);
-    }
+//    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+//    throws ServletException, IOException {
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+//        dispatcher.forward(request, response);
+//    }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        user existingUser = userDAO.selectUser(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
-        request.setAttribute("user", existingUser);
-        dispatcher.forward(request, response);
-
-    }
+//    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+//    throws SQLException, ServletException, IOException {
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        user existingUser = userDAO.selectUser(id);
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+//        request.setAttribute("user", existingUser);
+//        dispatcher.forward(request, response);
+//
+//    }
 
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException {
         
-    	
-   
-    	
     	String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String mobile = request.getParameter("mobile");
         
-        
-        user newUser = new user(name, email, password);
+        user newUser = new user(name, email, password, mobile);
         userDAO.insertUser(newUser);
-        response.sendRedirect("list");
+        response.sendRedirect("UserServlet");
     }
 
     private void updateUser(HttpServletRequest request, HttpServletResponse response)
@@ -118,10 +124,11 @@ public class UserServlet extends HttpServlet {
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException {
+    throws SQLException, IOException, ClassNotFoundException {
         int id = Integer.parseInt(request.getParameter("id"));
-        userDAO.deleteUser(id);
-        response.sendRedirect("list");
+        UserDAO udao = new UserDAO(DbCon.getConnection());
+        udao.deleteUser(id);
+        response.sendRedirect("UserServlet?action=list");
 
     }
 }

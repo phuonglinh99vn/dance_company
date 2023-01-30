@@ -37,6 +37,8 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(url[url.length-1]);
 //				RequestDispatcher dispatcher = request.getRequestDispatcher(urlString);
 //				dispatcher.forward(request, response);
+//			}else if (email.equals("admin") && password.equals("1234")) {
+//				chain.doFilter(request, response);
 			} else {
 				String warn = "Your email or passowrd is incorrect!";
 				session.setAttribute("warn", warn);

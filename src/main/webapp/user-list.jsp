@@ -26,7 +26,7 @@
 		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
 		<div class="container">
-			<h3 class="text-center">List of Users</h3>
+			<h3 class="text-center">List of Students</h3>
 			<hr>
 			<div class="container text-left">
 
@@ -52,7 +52,7 @@
 							<td><c:out value="${user.name}" /></td>
 							<td><c:out value="${user.email}" /></td>
 							<td><c:out value="${user.password}" /></td>
-							<td><a href="edit?id=<c:out value='${user.id}' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?id=<c:out value='${user.id}' />">Delete</a></td>
+							<td><a href="edit?id=<c:out value='${user.id}' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="UserServlet?action=delete&id=<c:out value='${user.id}' />">Delete</a></td>
 						</tr>
 					</c:forEach>
 					<!-- } -->

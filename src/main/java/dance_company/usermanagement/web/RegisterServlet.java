@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dance_company.usermanagement.model.*;
 
@@ -52,11 +53,6 @@ public class RegisterServlet extends HttpServlet {
 			//creating user object to store edata
 			user user= new user(userName, userEmail, userPassword, userPhone);
 			
-			int userId=(Integer) hibernateSession.save(user);
-			
-			
-			tx.commit();
-			hibernateSession.close();
 			HttpSession httpSession=request.getSession();
 			httpSession.setAttribute("message","*Registration SuccessFul !! User id is:" + userId);
 			response.sendRedirect("register.jsp");
