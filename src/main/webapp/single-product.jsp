@@ -34,7 +34,7 @@
 							to progress up to the next level.
 							
 							<hr style="color: #C69749; opacity: 1">
-						<form action="CartServlet" method="post">
+						<form action="CartServlet" method="post" id="cart-form">
 						<input type="hidden" name="productId" value="${detail.id}" />
 						<div class="d-flex justify-content-between mb-3">
 							<label for="timetable">Select Time: </label> <select
@@ -44,15 +44,15 @@
 									<option name="scheduleId" value="${schedule.id}">${schedule.time}</option>
 								</c:forEach>	
 							</select>
-							<button type="submit">Submit </button>
 						</a>
 						</div>
 						</form>
 						<hr style="color: #C69749; opacity: 1">
-  						<a class="btn btn-warning float-end d-flex align-items-center"
-								href="CartServlet?action=add&id=?">
+  						<button class="btn btn-warning float-end d-flex align-items-center" type="submit" form="cart-form">
 							<i class="fa-solid fa-cart-shopping fs-4 me-2"></i> 
 							<span>Add to Cart</span>
+						</button>
+
 						</a>
 						<div class="text-white">${noti}</div>
 						

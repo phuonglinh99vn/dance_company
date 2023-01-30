@@ -38,8 +38,6 @@ public class OrderDetails {
 		this.teacher = teacher;
 		this.time = time;
 	}
-	
-
 
 	public int getId() {
 		return id;

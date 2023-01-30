@@ -142,6 +142,9 @@ public class CartServlet extends HttpServlet {
 
 			// create order - return order Id
 			int userId = (int) session.getAttribute("userId");
+//			String warn = "You have not logged in. Please log in first!";
+//			request.setAttribute(warn, warn);
+//			response.sendRedirect("CartServlet?action=view_cart");
 			OrderDAO orderDAO = new OrderDAO(DbCon.getConnection());
 			Order order = new Order(userId, null);
 			int orderId = orderDAO.addOrder(order);
