@@ -85,19 +85,11 @@ public class OrderServlet extends HttpServlet {
 		
 	}
 	
-	protected void doGetDeleteClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		response.setContentType("text/html;charset=UTF-8");
-		try (PrintWriter out = response.getWriter()) {
+	protected void doGetDeleteClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		OrderDetailsDAO odetails = new OrderDetailsDAO(DbCon.getConnection());
 		odetails.deleteOrderDetails(id);
 		response.sendRedirect("OrderServlet?action=view_timetable");	
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

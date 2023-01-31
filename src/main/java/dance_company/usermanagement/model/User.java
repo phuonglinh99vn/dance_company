@@ -1,22 +1,22 @@
 package dance_company.usermanagement.model;
 
-public class user {
+public class User {
 	private int id;
 	private String name;
 	private String email;
 	private String password;
 	private String mobile;
 
-	public user() {
+	public User() {
 	}
 	
-	public user(String name, String email, String password) {
+	public User(String name, String email, String password) {
         super();
         this.name = name;
         this.email = email;
         this.password = password;
 	}
-	public user(int id, String name, String email, String password) {
+	public User(int id, String name, String email, String password) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -25,7 +25,7 @@ public class user {
 	
 	
 
-	public user(String name, String email, String password, String mobile) {
+	public User(String name, String email, String password, String mobile) {
 		super();
 		this.name = name;
 		this.email = email;

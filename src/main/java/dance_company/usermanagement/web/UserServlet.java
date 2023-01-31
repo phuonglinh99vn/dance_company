@@ -72,7 +72,7 @@ public class UserServlet extends HttpServlet {
     throws SQLException, IOException, ServletException, ClassNotFoundException{
     	try (PrintWriter out = response.getWriter()) {
     	UserDAO udao = new UserDAO(DbCon.getConnection());	
-    	List<user> listUser = udao.selectAllUsers();
+    	List<User> listUser = udao.selectAllUsers();
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
         dispatcher.forward(request, response);
@@ -106,7 +106,7 @@ public class UserServlet extends HttpServlet {
         String password = request.getParameter("password");
         String mobile = request.getParameter("mobile");
         
-        user newUser = new user(name, email, password, mobile);
+        User newUser = new User(name, email, password, mobile);
         userDAO.insertUser(newUser);
         response.sendRedirect("UserServlet");
     }
@@ -118,7 +118,7 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        user book = new user(id, name, email, password);
+        User book = new User(id, name, email, password);
         userDAO.updateUser(book);
         response.sendRedirect("list");
     }

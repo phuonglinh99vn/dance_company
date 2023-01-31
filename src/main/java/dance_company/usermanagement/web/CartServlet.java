@@ -153,7 +153,6 @@ public class CartServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
 		int id = Integer.parseInt(request.getParameter("schedule"));
 		int id1 = Integer.parseInt(request.getParameter("productId"));
 		doGetAdd(request, response);

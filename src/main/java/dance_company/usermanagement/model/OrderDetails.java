@@ -26,9 +26,10 @@ public class OrderDetails {
 		this.scheduleId = scheduleId;
 	}
 
-	public OrderDetails(int userId, Date submitDate, String status, int orderId, String name, String level,
+	public OrderDetails(int id, int userId, Date submitDate, String status, int orderId, String name, String level,
 			String teacher, String time) {
 		super();
+		this.id = id;
 		this.userId = userId;
 		this.submitDate = submitDate;
 		this.status = status;

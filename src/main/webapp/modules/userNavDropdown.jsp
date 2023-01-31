@@ -21,7 +21,7 @@
 		<c:if test="${sessionScope.name != 'admin'}">
 			<li><a class="dropdown-item" href="/dance_company/OrderServlet?action=view_timetable">My Classes</a></li>
 		</c:if>
-			<li><a class="dropdown-item" href="LogoutServlet">Log Out</a></li>
+			<li><a class="dropdown-item" href="Authentication?action=logout">Log Out</a></li>
 		</ul>
 	</c:if>
 </div>

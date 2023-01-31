@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dance_company.usermanagement.model.user;
+import dance_company.usermanagement.model.User;
 
 public class UserDAO2 {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/dance_company";
@@ -40,13 +40,13 @@ public class UserDAO2 {
         return connection;
     }
 
-    public void insertUser(user user) throws SQLException {
+    public void insertUser(User User) throws SQLException {
         System.out.println(INSERT_USERS_SQL);
         // try-with-resource statement will auto close the connection.
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(1, User.getName());
+            preparedStatement.setString(2, User.getEmail());
+            preparedStatement.setString(3, User.getPassword());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -54,8 +54,8 @@ public class UserDAO2 {
         }
     }
 
-    public user selectUser(int id) {
-    	user user = null;
+    public User selectUser(int id) {
+    	User User = null;
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
             // Step 2:Create a statement using connection object
@@ -70,18 +70,18 @@ public class UserDAO2 {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                user = new user(id, name, email, password);
+                User = new User(id, name, email, password);
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return user;
+        return User;
     }
 
-    public List < user > selectAllUsers() {
+    public List < User > selectAllUsers() {
 
         // using try-with-resources to avoid closing resources (boiler plate code)
-        List < user > users = new ArrayList < > ();
+        List < User > Users = new ArrayList < > ();
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
 
@@ -97,12 +97,12 @@ public class UserDAO2 {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                users.add(new user(id, name, email, password));
+                Users.add(new User(id, name, email, password));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return users;
+        return Users;
     }
 
     public boolean deleteUser(int id) throws SQLException {
@@ -114,13 +114,13 @@ public class UserDAO2 {
         return rowDeleted;
     }
 
-    public boolean updateUser(user user) throws SQLException {
+    public boolean updateUser(User User) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
-            statement.setInt(4, user.getId());
+            statement.setString(1, User.getName());
+            statement.setString(2, User.getEmail());
+            statement.setString(3, User.getPassword());
+            statement.setInt(4, User.getId());
 
             rowUpdated = statement.executeUpdate() > 0;
         }

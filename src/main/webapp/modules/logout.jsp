@@ -15,7 +15,7 @@
 					aria-label="Close"></button>
 				<h3 class="modal-title text-center">Hi,${sessionScope.name}</h3>
 				<div class="modal-footer">
-					<a href="LogoutServlet">Log out?</a>
+					<a href="Authentication?action=logout">Log out?</a>
 				</div>
 
 

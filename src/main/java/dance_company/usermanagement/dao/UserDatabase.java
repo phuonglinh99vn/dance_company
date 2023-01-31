@@ -1,7 +1,7 @@
 package dance_company.usermanagement.dao;
 
 import java.sql.*;
-import dance_company.usermanagement.model.user;
+import dance_company.usermanagement.model.User;
 public class UserDatabase {
     Connection con ;
 
@@ -10,16 +10,16 @@ public class UserDatabase {
     }
     
     //for register user 
-    public boolean saveUser(user user){
+    public boolean saveUser(User User){
         boolean set = false;
         try{
             //Insert register data to database
             String query = "insert into user(name,email,password) values(?,?,?)";
            
            PreparedStatement pt = this.con.prepareStatement(query);
-           pt.setString(1, user.getName());
-           pt.setString(2, user.getEmail());
-           pt.setString(3, user.getPassword());
+           pt.setString(1, User.getName());
+           pt.setString(2, User.getEmail());
+           pt.setString(3, User.getPassword());
            
            pt.executeUpdate();
            set = true;

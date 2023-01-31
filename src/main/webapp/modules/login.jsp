@@ -11,7 +11,7 @@
 					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form action="user-login" method="POST" novalidate
+				<form action="Authentication?action=login" method="POST" novalidate
 					class="validated-form" id="loginForm">
 					<div class="mb-3 flex justify-content-center">
 						<label class="form-label" for="email">Email</label> <input type="email" class="form-control"

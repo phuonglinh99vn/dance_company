@@ -25,8 +25,8 @@ public class UserDAO {
 		this.con = con;
 	}
 
-	public user userLogin(String email, String password) {
-		user user = null;
+	public User userLogin(String email, String password) {
+		User user = null;
 		try {
 			query = "select * from user where email=? and password=?";
 			pst = this.con.prepareStatement(query);
@@ -34,7 +34,7 @@ public class UserDAO {
 			pst.setString(2, password);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				user = new user();
+				user = new User();
 				user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email"));
@@ -45,15 +45,16 @@ public class UserDAO {
 		return user;
 	}
 
-	public void insertUser(user user) throws SQLException {
+	public void insertUser(User user) throws SQLException {
 
 		try {
 
-			query = "INSERT INTO user" + "  (name, email, password) VALUES " + " (?, ?, ?);";
+			query = "INSERT INTO user" + "  (name, email, password, mobile) VALUES " + " (?, ?, ?, ?);";
 			pst = this.con.prepareStatement(query);
 			pst.setString(1, user.getName());
 			pst.setString(2, user.getEmail());
 			pst.setString(3, user.getPassword());
+			pst.setString(4, user.getMobile());
 			System.out.println(pst);
 			pst.executeUpdate();
 		} catch (SQLException e) {
@@ -61,8 +62,8 @@ public class UserDAO {
 		}
 	}
 
-	public user selectUser(int id) {
-		user user = null;
+	public User selectUser(int id) {
+		User user = null;
 		try {
 
 			query = "select id,name,email,password from user where id =?";
@@ -76,7 +77,7 @@ public class UserDAO {
 				String name = rs.getString("name");
 				String email = rs.getString("email");
 				String password = rs.getString("password");
-				user = new user(id, name, email, password);
+				user = new User(id, name, email, password);
 			}
 		} catch (Exception e) {
 			 e.printStackTrace();
@@ -84,9 +85,9 @@ public class UserDAO {
 		return user;
 	}
 
-	public List<user> selectAllUsers() {
+	public List<User> selectAllUsers() {
 
-		List<user> users = new ArrayList<>();
+		List<User> users = new ArrayList<>();
 		
 		try {
 			query = "select * from user";
@@ -94,7 +95,7 @@ public class UserDAO {
 	        rs = pst.executeQuery();
 
 			while (rs.next()) {
-				user row = new user();
+				User row = new User();
 				row.setId(rs.getInt("id"));
 				row.setName(rs.getString("name")); 
 				row.setEmail(rs.getString("email"));
@@ -119,19 +120,20 @@ public class UserDAO {
 		return rowDeleted;
 	}
 
-	public boolean updateUser(user user) throws SQLException {
+	public boolean updateUser(User User) throws SQLException {
 		boolean rowUpdated;
 			
 			query = "update user set name = ?,email= ?, password =? where id = ?;";
 			pst = this.con.prepareStatement(query);
-			pst.setString(1, user.getName());
-			pst.setString(2, user.getEmail());
-			pst.setString(3, user.getPassword());
-			pst.setInt(4, user.getId());
+			pst.setString(1, User.getName());
+			pst.setString(2, User.getEmail());
+			pst.setString(3, User.getPassword());
+			pst.setInt(4, User.getId());
 
 			rowUpdated = pst.executeUpdate() > 0;
 		return rowUpdated;
 	}
+	
 
 	private void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {

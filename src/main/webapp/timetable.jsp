@@ -33,7 +33,7 @@
 				<span>Teacher: ${item.teacher}</span>
 			</div>
 			<div class="col-2">
-				<a class="btn btn-primary" href="cancelOrder?id=${item.id}">Cancel</a>
+				<a class="btn btn-primary" href="OrderServlet?action=delete_Class&id=${item.id}">Cancel</a>
 			</div>
 		</div>
 		<hr>
