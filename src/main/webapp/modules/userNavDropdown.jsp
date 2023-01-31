@@ -15,7 +15,12 @@
 		<a class="btn btn-danger dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-user me-2"></i> <span>Hi, ${sessionScope.name}</span>
 		</a>
 		<ul class="dropdown-menu">
+		<c:if test="${sessionScope.name == 'admin'}">
+			<li><a class="dropdown-item" href="/dance_company/UserServlet?action=list"">Admin Portal</a></li>
+		</c:if>
+		<c:if test="${sessionScope.name != 'admin'}">
 			<li><a class="dropdown-item" href="/dance_company/OrderServlet?action=view_timetable">My Classes</a></li>
+		</c:if>
 			<li><a class="dropdown-item" href="LogoutServlet">Log Out</a></li>
 		</ul>
 	</c:if>

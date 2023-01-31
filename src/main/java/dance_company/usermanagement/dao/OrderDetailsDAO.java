@@ -91,5 +91,17 @@ public class OrderDetailsDAO {
 		}
 		return orderDetails;
 	}
+	
+	public boolean deleteOrderDetails(int id) throws SQLException {
+		boolean rowDeleted;
+		
+			query = "delete from order_details where id = ?;";
+			pst = this.con.prepareStatement(query);
+			pst.setInt(1, id);
+			rowDeleted = pst.executeUpdate() > 0;
+		return rowDeleted;
+	}
+	
+	
 
 }

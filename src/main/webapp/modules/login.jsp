@@ -17,7 +17,6 @@
 						<label class="form-label" for="email">Email</label> <input type="email" class="form-control"
 							name="login-email" id="email" aria-describedby="Email"
 							placeholder="user@mail.com" required />
-						<div class="valid-feedback">${warn}</div>
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="password">Password</label> <input type="password"
@@ -36,7 +35,6 @@
 					Not a member yet? <a href="#signupModal" data-bs-toggle="modal">Sign
 						Up</a>
 				</p>
-
 			</div>
 		</div>
 	</div>

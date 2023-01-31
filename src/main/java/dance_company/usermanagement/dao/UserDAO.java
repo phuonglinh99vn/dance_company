@@ -99,7 +99,7 @@ public class UserDAO {
 				row.setName(rs.getString("name")); 
 				row.setEmail(rs.getString("email"));
 				row.setPassword(rs.getString("password"));
-				
+				row.setMobile(rs.getString("mobile"));
 				users.add(row);
 			}
 		} catch (SQLException e) {

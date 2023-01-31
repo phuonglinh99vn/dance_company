@@ -1,11 +1,18 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:template title="The Dance Company | Class Details">
 	<jsp:attribute name="body">
-<section class="mb-5" style="height: auto">
+	
+	<section class="mb-5 position-relative" style="height: auto">
+		<div class="container pt-5">
+        	<h6 class="mb-0">
+				<a href="/dance_company/BookingServlet"
+						class="text-white text-decoration-none"><i
+						class="fas fa-long-arrow-alt-left me-2"></i>Back to classes</a>
+			</h6>
+        </div>
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col me-5">
@@ -30,8 +37,14 @@
 							we encourage you to enroll in an Introduction to Ballet short
 							course with us prior to attending the Beginner Ballet class.
 						
+							
+							
+							
 							<p>Please discuss with your teacher if you feel you are ready
 							to progress up to the next level.
+							
+							
+							
 							
 							<hr style="color: #C69749; opacity: 1">
 						<form action="CartServlet" method="post" id="cart-form">
@@ -44,22 +57,40 @@
 									<option name="scheduleId" value="${schedule.id}">${schedule.time}</option>
 								</c:forEach>	
 							</select>
-						</a>
+						
 						</div>
 						</form>
 						<hr style="color: #C69749; opacity: 1">
-  						<button class="btn btn-warning float-end d-flex align-items-center" type="submit" form="cart-form">
+  						<button
+								class="btn btn-warning float-end d-flex align-items-center"
+								type="submit" form="cart-form">
 							<i class="fa-solid fa-cart-shopping fs-4 me-2"></i> 
 							<span>Add to Cart</span>
 						</button>
-
-						</a>
-						<div class="text-white">${noti}</div>
 						
+						<c:if test = "${noti != null}">
+							<div class="position-absolute top-0 end-0">
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<span>${noti}</span>
+  									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							</div>
+						</c:if>
+					
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	<script>
+		const toastTrigger = document.getElementById('liveToastBtn');
+		const toastLiveExample = document.getElementById('liveToast');
+		if (toastTrigger) {
+	  		toastTrigger.addEventListener('click', () => {
+	    	const toast = new bootstrap.Toast(toastLiveExample);
+	    	toast.show();
+	  })
+	}
+	</script>
 </jsp:attribute>
 </t:template>

@@ -31,25 +31,18 @@ public class LoginServlet extends HttpServlet {
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			user user = udao.userLogin(email, password);
 			if (user != null) {
-				
 				session.setAttribute("name", user.getName());
 				session.setAttribute("userId", user.getId());
 				response.sendRedirect(url[url.length-1]);
-//				RequestDispatcher dispatcher = request.getRequestDispatcher(urlString);
-//				dispatcher.forward(request, response);
-//			}else if (email.equals("admin") && password.equals("1234")) {
-//				chain.doFilter(request, response);
 			} else {
 				String warn = "Your email or passowrd is incorrect!";
-				session.setAttribute("warn", warn);
-				
-//				RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length-1]);
-//				dispatcher.forward(request, response);
+				request.setAttribute("warn", warn);				
+				RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length-1]);
+				dispatcher.forward(request, response);
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

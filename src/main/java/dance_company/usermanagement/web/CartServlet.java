@@ -19,16 +19,10 @@ import connection.DbCon;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
-/**
- * Servlet implementation class CartServlet
- */
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public CartServlet() {
 		super();
 
@@ -78,8 +72,6 @@ public class CartServlet extends HttpServlet {
 				for (Product c : cart) {
 					if (c.getTime().equals(p.getTime())) {
 						exist = true;
-//						session.setAttribute("cart", cart);
-//						response.sendRedirect("BookingServlet");
 						String noti = "You have another class at the same time. \n Please choose another.";
 						request.setAttribute("noti", noti);
 						RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length - 1]);
@@ -91,8 +83,6 @@ public class CartServlet extends HttpServlet {
 					cart.add(p);
 					session.setAttribute("cart", cart);
 					request.getRequestDispatcher(url[url.length - 1]).forward(request, response);
-//					System.out.println("New Item");
-//					response.sendRedirect("BookingServlet");
 				}
 
 			}
@@ -125,7 +115,6 @@ public class CartServlet extends HttpServlet {
 			cart.remove(b);
 			session.setAttribute("cart", cart);
 			response.sendRedirect("CartServlet?action=view_cart");
-//			request.getRequestDispatcher("CartServlet?action=view_cart").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,30 +123,29 @@ public class CartServlet extends HttpServlet {
 	}
 
 	protected void doGetSubmitCart(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, NullPointerException {
 
 		try (PrintWriter out = response.getWriter()) {
 			HttpSession session = request.getSession(false);
-			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
 
-			// create order - return order Id
-			int userId = (int) session.getAttribute("userId");
-//			String warn = "You have not logged in. Please log in first!";
-//			request.setAttribute(warn, warn);
-//			response.sendRedirect("CartServlet?action=view_cart");
+			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
+			Integer userId = (int) session.getAttribute("userId");
 			OrderDAO orderDAO = new OrderDAO(DbCon.getConnection());
 			Order order = new Order(userId, null);
 			int orderId = orderDAO.addOrder(order);
 			OrderDetailsDAO oDAO = new OrderDetailsDAO(DbCon.getConnection());
 
-			// create orderDetail
 			for (Product product : cart) {
 				OrderDetails orderDetails = new OrderDetails(orderId, product.getId());
 				oDAO.addOrderDetails(orderDetails);
 			}
-
 			session.removeAttribute("cart");
 			response.sendRedirect("CartServlet?action=view_cart");
+		} catch (NullPointerException e) {
+			String noti = "You have not logged in. Please logged in first!";
+			request.setAttribute(noti, noti);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("CartServlet?action=view_cart");
+			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -166,8 +154,6 @@ public class CartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-//		try (PrintWriter out = response.getWriter()) {
-//			String id = request.getParameter("schedule");
 		int id = Integer.parseInt(request.getParameter("schedule"));
 		int id1 = Integer.parseInt(request.getParameter("productId"));
 		doGetAdd(request, response);

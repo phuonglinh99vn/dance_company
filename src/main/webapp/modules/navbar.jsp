@@ -11,6 +11,7 @@
 				Dance Company</a>
 		</div>
 		<div>
+			<div>${warn}</div>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -26,8 +27,6 @@
 						href="/dance_company/BookingServlet">Book A Class</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/dance_company/ContactUsServlet">Contact Us</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="/dance_company/UserServlet?action=list">Admin Portal</a></li>
 				</ul>
 			</div>
 		</div>
