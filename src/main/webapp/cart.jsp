@@ -59,8 +59,7 @@
 
                   <hr class="m-0">
 					</c:forEach>
-				<h6 class="text-black"> ${noti}</h6>
-
+					  <h6 class="text-black"> ${noti}</h6>
                   <div class="pt-5">
                     <h6 class="mb-0">
 						<a href="/dance_company/BookingServlet" class="text-body"><i

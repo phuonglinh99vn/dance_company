@@ -35,7 +35,8 @@ public class CartServlet extends HttpServlet {
 			if (action.equalsIgnoreCase("add")) {
 				doGetAdd(request, response);
 			} else if (action.equalsIgnoreCase("view_cart")) {
-				response.sendRedirect("cart.jsp");
+				request.getRequestDispatcher("cart.jsp").forward(request, response);
+//				response.sendRedirect("cart.jsp");
 			} else if (action.equalsIgnoreCase("remove")) {
 				doGetRemove(request, response);
 			} else if (action.equalsIgnoreCase("submit_cart")) {
@@ -64,7 +65,7 @@ public class CartServlet extends HttpServlet {
 				cart = new ArrayList<Product>();
 				cart.add(p);
 				session.setAttribute("cart", cart);
-				response.sendRedirect(url[url.length - 1]);
+				response.sendRedirect("detail?id=" + id1);
 
 			} else {
 				boolean exist = false;
@@ -74,7 +75,7 @@ public class CartServlet extends HttpServlet {
 						exist = true;
 						String noti = "You have another class at the same time. \n Please choose another.";
 						request.setAttribute("noti", noti);
-						RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length - 1]);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("detail?id=" + id1);
 						dispatcher.forward(request, response);
 					}
 				}
@@ -82,7 +83,7 @@ public class CartServlet extends HttpServlet {
 				if (exist == false) {
 					cart.add(p);
 					session.setAttribute("cart", cart);
-					request.getRequestDispatcher(url[url.length - 1]).forward(request, response);
+					request.getRequestDispatcher("detail?id=" + id1).forward(request, response);
 				}
 
 			}
@@ -129,6 +130,12 @@ public class CartServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 
 			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
+			if ((Integer) session.getAttribute("userId") == null ) {
+				request.setAttribute("noti", "You have not logged in!" );
+				RequestDispatcher dispatcher = request.getRequestDispatcher("CartServlet?action=view_cart");
+				dispatcher.forward(request, response);
+				
+			} else {
 			Integer userId = (int) session.getAttribute("userId");
 			OrderDAO orderDAO = new OrderDAO(DbCon.getConnection());
 			Order order = new Order(userId, null);
@@ -140,12 +147,8 @@ public class CartServlet extends HttpServlet {
 				oDAO.addOrderDetails(orderDetails);
 			}
 			session.removeAttribute("cart");
-			response.sendRedirect("CartServlet?action=view_cart");
-		} catch (NullPointerException e) {
-			String noti = "You have not logged in. Please logged in first!";
-			request.setAttribute(noti, noti);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("CartServlet?action=view_cart");
-			dispatcher.forward(request, response);
+			response.sendRedirect("BookingServlet");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

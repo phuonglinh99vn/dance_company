@@ -44,7 +44,6 @@ public class AuthenticationServlet extends HttpServlet {
 		
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		doGet(request, response);
@@ -66,11 +65,10 @@ public class AuthenticationServlet extends HttpServlet {
 				response.sendRedirect(url[url.length-1]);
 			} else {
 				System.out.println(url[url.length-1]);
-				String warn = "Your email or passowrd is incorrect!";
+				String warn = "Your email or passowrd is incorrect! \n Please login again";
 				request.setAttribute("warn", warn);
-				response.sendRedirect(url[url.length-1]);
-//				RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length-1]);
-//				dispatcher.forward(request, response);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length-1]);
+				dispatcher.forward(request, response);
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -79,17 +77,15 @@ public class AuthenticationServlet extends HttpServlet {
 	}
 	
 	private void Logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
-		String[] url = request.getHeader("referer").split("/");
 		session.removeAttribute("name");
-		response.sendRedirect(url[url.length-1]);
+		response.sendRedirect("HomeServlet");
 	}
 	
 	private void Register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
-			
+			String[] url = request.getHeader("referer").split("/");	
 			String userName= request.getParameter("name");
 			String userEmail= request.getParameter("email");
 			String userPassword= request.getParameter("pwd");
@@ -98,8 +94,7 @@ public class AuthenticationServlet extends HttpServlet {
 			User user= new User(userName, userEmail, userPassword, userPhone);
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			udao.insertUser(user);
-//			request.setAttribute("message","*Registration SuccessFul !!");
-			response.sendRedirect("HomeServlet");
+			response.sendRedirect(url[url.length-1]);
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();

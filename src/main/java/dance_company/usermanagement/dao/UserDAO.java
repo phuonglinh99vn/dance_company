@@ -134,7 +134,6 @@ public class UserDAO {
 		return rowUpdated;
 	}
 	
-
 	private void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {

@@ -3,15 +3,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg bg-light position-relative">
 	<div class="container d-flex justify-content-between">
+		<c:if test = "${warn != null}">
+			<div class="position-absolute start-0">
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<span>${warn}</span>
+  					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</div>
+		</c:if>
 		<div class="">
 			<img src="images/logo.png" alt="Logo" style="width: 45px" /> <a
 				class="navbar-brand fw-bold fs-3" href="/dance_company/HomeServlet">The
 				Dance Company</a>
 		</div>
 		<div>
-			<div>${warn}</div>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"

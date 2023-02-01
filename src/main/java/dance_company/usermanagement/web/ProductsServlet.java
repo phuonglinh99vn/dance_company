@@ -32,26 +32,13 @@ public class ProductsServlet extends HttpServlet {
 			request.setAttribute("detail", p);
 			request.setAttribute("schedule", s);
 			request.getRequestDispatcher("single-product.jsp").forward(request, response);
-		}
-		
+		}		
 		catch (ClassNotFoundException|SQLException e) {
 		e.printStackTrace();
 		}
-
-		// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-		// + sign on the left to edit the code.">
-		/**
-		 * Handles the HTTP <code>GET</code> method.
-		 *
-		 * @param request  servlet request
-		 * @param response servlet response
-		 * @throws ServletException if a servlet-specific error occurs
-		 * @throws IOException      if an I/O error occurs
-		 */
-		
 		}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		doGet(request, response);
 	}
 
