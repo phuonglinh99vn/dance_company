@@ -16,31 +16,31 @@ import connection.DbCon;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
-
 @WebServlet("/detail")
 public class ProductsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
 			int id = Integer.parseInt(request.getParameter("id"));
 			ProductDao pdao = new ProductDao(DbCon.getConnection());
 			Product p = pdao.getSingleProduct(id);
 			List<Product> s = pdao.getSchedule(id);
-			
+
 			request.setAttribute("detail", p);
 			request.setAttribute("schedule", s);
 			request.getRequestDispatcher("single-product.jsp").forward(request, response);
-		}		
-		catch (ClassNotFoundException|SQLException e) {
-		e.printStackTrace();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
-		}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		doGet(request, response);
 	}
 
-	
 }

@@ -16,119 +16,58 @@ import connection.DbCon;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
-/**
- * ControllerServlet.java
- * This servlet acts as a page controller for the application, handling all
- * requests from the user.
- * @email Ramesh Fadatare
- */
-
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private UserDAO userDAO;
+	private static final long serialVersionUID = 1L;
+	private UserDAO userDAO;
 
-    public void init() {
-        userDAO = new UserDAO();
-    }
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        doGet(request, response);
-    }
+	public void init() {
+		userDAO = new UserDAO();
+	}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-    	String action = request.getParameter("action");
-        
-        try {
-            switch (action) {
-//                case "/new":
-//                    showNewForm(request, response);
-//                    break;
-                case "/insert":
-                    insertUser(request, response);
-                    break;
-                case "delete":
-                    deleteUser(request, response);
-                    break;
-//                case "/edit":
-//                    showEditForm(request, response);
-//                    break;
-                case "/update":
-                    updateUser(request, response);
-                    break;
-                case "list":
-                    listUser(request, response);
-                    break;
-            }
-        } catch (Exception e) {
-//            throw new ServletException(ex);
-        	e.printStackTrace();
-        }
-    }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
-    private void listUser(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException, ServletException, ClassNotFoundException{
-    	try (PrintWriter out = response.getWriter()) {
-    	UserDAO udao = new UserDAO(DbCon.getConnection());	
-    	List<User> listUser = udao.selectAllUsers();
-        request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
-        dispatcher.forward(request, response);
-    	
-    	} catch (ClassNotFoundException|SQLException e) {
-    		e.printStackTrace();
-    		}
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action");
 
-//    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-//    throws ServletException, IOException {
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
-//        dispatcher.forward(request, response);
-//    }
+		try {
+			switch (action) {
+			case "delete":
+				deleteUser(request, response);
+				break;
+			case "list":
+				listUser(request, response);
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-//    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-//    throws SQLException, ServletException, IOException {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        user existingUser = userDAO.selectUser(id);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
-//        request.setAttribute("user", existingUser);
-//        dispatcher.forward(request, response);
-//
-//    }
+	private void listUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException, ClassNotFoundException {
+		try (PrintWriter out = response.getWriter()) {
+			UserDAO udao = new UserDAO(DbCon.getConnection());
+			List<User> listUser = udao.selectAllUsers();
+			request.setAttribute("listUser", listUser);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("adminportal.jsp");
+			dispatcher.forward(request, response);
 
-    private void insertUser(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException {
-        
-    	String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String mobile = request.getParameter("mobile");
-        
-        User newUser = new User(name, email, password, mobile);
-        userDAO.insertUser(newUser);
-        response.sendRedirect("UserServlet");
-    }
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-    private void updateUser(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ClassNotFoundException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		UserDAO udao = new UserDAO(DbCon.getConnection());
+		udao.deleteUser(id);
+		response.sendRedirect("UserServlet?action=list");
 
-        User book = new User(id, name, email, password);
-        userDAO.updateUser(book);
-        response.sendRedirect("list");
-    }
-
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException, ClassNotFoundException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        UserDAO udao = new UserDAO(DbCon.getConnection());
-        udao.deleteUser(id);
-        response.sendRedirect("UserServlet?action=list");
-
-    }
+	}
 }

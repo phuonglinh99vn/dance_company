@@ -67,8 +67,8 @@ public class AuthenticationServlet extends HttpServlet {
 				System.out.println(url[url.length-1]);
 				String warn = "Your email or passowrd is incorrect! \n Please login again";
 				request.setAttribute("warn", warn);
-				RequestDispatcher dispatcher = request.getRequestDispatcher(url[url.length-1]);
-				dispatcher.forward(request, response);
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
+
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -85,7 +85,6 @@ public class AuthenticationServlet extends HttpServlet {
 	private void Register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
-			String[] url = request.getHeader("referer").split("/");	
 			String userName= request.getParameter("name");
 			String userEmail= request.getParameter("email");
 			String userPassword= request.getParameter("pwd");
@@ -94,7 +93,7 @@ public class AuthenticationServlet extends HttpServlet {
 			User user= new User(userName, userEmail, userPassword, userPhone);
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			udao.insertUser(user);
-			response.sendRedirect(url[url.length-1]);
+			response.sendRedirect("HomeServlet");
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();

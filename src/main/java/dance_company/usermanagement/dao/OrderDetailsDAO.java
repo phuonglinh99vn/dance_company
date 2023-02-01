@@ -26,20 +26,15 @@ public class OrderDetailsDAO {
 	}
 
 	public void addOrderDetails(OrderDetails orderDetails) throws SQLException {
+		String sql = "INSERT INTO `dance_company`.`order_details` (`order_id`, `schedule_id`) VALUES (?, ?)";
 
-//		try {
-			String sql = "INSERT INTO `dance_company`.`order_details` (`order_id`, `schedule_id`) VALUES (?, ?)";
+		pst = con.prepareStatement(sql);
 
-			pst = con.prepareStatement(sql);
+		pst.setInt(1, orderDetails.getOrderId());
+		pst.setInt(2, orderDetails.getscheduleId());
 
-			pst.setInt(1, orderDetails.getOrderId());
-			pst.setInt(2, orderDetails.getscheduleId());
+		pst.execute();
 
-			pst.execute();
-
-//		} finally {
-//			close(con, pst, null);
-//		}
 	}
 
 	private void close(Connection conn, Statement stm, ResultSet rs) {
@@ -64,8 +59,7 @@ public class OrderDetailsDAO {
 			query = "SELECT ods.id, userId, submitDate, od.status, order_id, sc.time, dc.name, dc.level, dc.teacher FROM dance_company.order od\r\n"
 					+ "					join order_details ods on od.id = ods.order_id\r\n"
 					+ "					join schedule sc on ods.schedule_id = sc.idschedule\r\n"
-					+ "					join dance_class dc on sc.class_id = dc.id\r\n"
-					+ "				where userId=?";
+					+ "					join dance_class dc on sc.class_id = dc.id\r\n" + "				where userId=?";
 
 			pst = this.con.prepareStatement(query);
 			pst.setInt(1, id);
@@ -92,17 +86,15 @@ public class OrderDetailsDAO {
 		}
 		return orderDetails;
 	}
-	
+
 	public boolean deleteOrderDetails(int id) throws SQLException {
 		boolean rowDeleted;
-		
-			query = "delete from order_details where id = ?;";
-			pst = this.con.prepareStatement(query);
-			pst.setInt(1, id);
-			rowDeleted = pst.executeUpdate() > 0;
+
+		query = "delete from order_details where id = ?;";
+		pst = this.con.prepareStatement(query);
+		pst.setInt(1, id);
+		rowDeleted = pst.executeUpdate() > 0;
 		return rowDeleted;
 	}
-	
-	
 
 }

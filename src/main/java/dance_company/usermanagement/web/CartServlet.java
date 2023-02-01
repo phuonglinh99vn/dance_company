@@ -36,7 +36,6 @@ public class CartServlet extends HttpServlet {
 				doGetAdd(request, response);
 			} else if (action.equalsIgnoreCase("view_cart")) {
 				request.getRequestDispatcher("cart.jsp").forward(request, response);
-//				response.sendRedirect("cart.jsp");
 			} else if (action.equalsIgnoreCase("remove")) {
 				doGetRemove(request, response);
 			} else if (action.equalsIgnoreCase("submit_cart")) {
@@ -57,7 +56,6 @@ public class CartServlet extends HttpServlet {
 			ProductDao pdao = new ProductDao(DbCon.getConnection());
 			Product p = pdao.getSingleSchedule(id);
 			HttpSession session = request.getSession(false);
-			String[] url = request.getHeader("referer").split("/");
 
 			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
 
@@ -130,24 +128,24 @@ public class CartServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 
 			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
-			if ((Integer) session.getAttribute("userId") == null ) {
-				request.setAttribute("noti", "You have not logged in!" );
+			if ((Integer) session.getAttribute("userId") == null) {
+				request.setAttribute("noti", "You have not logged in!");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("CartServlet?action=view_cart");
 				dispatcher.forward(request, response);
-				
-			} else {
-			Integer userId = (int) session.getAttribute("userId");
-			OrderDAO orderDAO = new OrderDAO(DbCon.getConnection());
-			Order order = new Order(userId, null);
-			int orderId = orderDAO.addOrder(order);
-			OrderDetailsDAO oDAO = new OrderDetailsDAO(DbCon.getConnection());
 
-			for (Product product : cart) {
-				OrderDetails orderDetails = new OrderDetails(orderId, product.getId());
-				oDAO.addOrderDetails(orderDetails);
-			}
-			session.removeAttribute("cart");
-			response.sendRedirect("BookingServlet");
+			} else {
+				Integer userId = (int) session.getAttribute("userId");
+				OrderDAO orderDAO = new OrderDAO(DbCon.getConnection());
+				Order order = new Order(userId, null);
+				int orderId = orderDAO.addOrder(order);
+				OrderDetailsDAO oDAO = new OrderDetailsDAO(DbCon.getConnection());
+
+				for (Product product : cart) {
+					OrderDetails orderDetails = new OrderDetails(orderId, product.getId());
+					oDAO.addOrderDetails(orderDetails);
+				}
+				session.removeAttribute("cart");
+				response.sendRedirect("BookingServlet");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

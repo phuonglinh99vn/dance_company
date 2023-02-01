@@ -3,7 +3,7 @@ package dance_company.usermanagement.model;
 import java.util.Date;
 
 public class OrderDetails {
-	
+
 	private int id;
 	public int userId;
 	private int scheduleId;
@@ -14,12 +14,10 @@ public class OrderDetails {
 	public String level;
 	public String teacher;
 	public String time;
-	
+
 	public OrderDetails() {
 	}
 
-	
-	
 	public OrderDetails(int orderId, int scheduleId) {
 		super();
 		this.orderId = orderId;
@@ -55,8 +53,6 @@ public class OrderDetails {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
-
 
 	public int getscheduleId() {
 		return scheduleId;
@@ -121,12 +117,5 @@ public class OrderDetails {
 	public void setTime(String time) {
 		this.time = time;
 	}
-
-	
-	
-
-	
-
-	
 
 }

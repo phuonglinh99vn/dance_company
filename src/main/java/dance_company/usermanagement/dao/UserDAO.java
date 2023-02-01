@@ -18,8 +18,9 @@ public class UserDAO {
 	public PreparedStatement pst;
 	public ResultSet rs;
 
-	public UserDAO() {}
-	
+	public UserDAO() {
+	}
+
 	public UserDAO(Connection con) {
 		super();
 		this.con = con;
@@ -62,78 +63,41 @@ public class UserDAO {
 		}
 	}
 
-	public User selectUser(int id) {
-		User user = null;
-		try {
-
-			query = "select id,name,email,password from user where id =?";
-			pst = this.con.prepareStatement(query);
-			pst.setInt(1, id);
-			System.out.println(pst);
-
-			ResultSet rs = pst.executeQuery();
-
-			while (rs.next()) {
-				String name = rs.getString("name");
-				String email = rs.getString("email");
-				String password = rs.getString("password");
-				user = new User(id, name, email, password);
-			}
-		} catch (Exception e) {
-			 e.printStackTrace();
-		}
-		return user;
-	}
-
 	public List<User> selectAllUsers() {
 
 		List<User> users = new ArrayList<>();
-		
+
 		try {
 			query = "select * from user";
-	        pst = this.con.prepareStatement(query);
-	        rs = pst.executeQuery();
+			pst = this.con.prepareStatement(query);
+			rs = pst.executeQuery();
 
 			while (rs.next()) {
 				User row = new User();
 				row.setId(rs.getInt("id"));
-				row.setName(rs.getString("name")); 
+				row.setName(rs.getString("name"));
 				row.setEmail(rs.getString("email"));
 				row.setPassword(rs.getString("password"));
 				row.setMobile(rs.getString("mobile"));
 				users.add(row);
 			}
 		} catch (SQLException e) {
-	        e.printStackTrace();
-	        System.out.println(e.getMessage());
+			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return users;
 	}
 
 	public boolean deleteUser(int id) throws SQLException {
 		boolean rowDeleted;
-		
-			query = "delete from user where id = ?;";
-			pst = this.con.prepareStatement(query);
-			pst.setInt(1, id);
-			rowDeleted = pst.executeUpdate() > 0;
+
+		query = "delete from user where id = ?;";
+		pst = this.con.prepareStatement(query);
+		pst.setInt(1, id);
+		rowDeleted = pst.executeUpdate() > 0;
 		return rowDeleted;
 	}
 
-	public boolean updateUser(User User) throws SQLException {
-		boolean rowUpdated;
-			
-			query = "update user set name = ?,email= ?, password =? where id = ?;";
-			pst = this.con.prepareStatement(query);
-			pst.setString(1, User.getName());
-			pst.setString(2, User.getEmail());
-			pst.setString(3, User.getPassword());
-			pst.setInt(4, User.getId());
-
-			rowUpdated = pst.executeUpdate() > 0;
-		return rowUpdated;
-	}
-	
 	private void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {

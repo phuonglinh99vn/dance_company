@@ -9,21 +9,20 @@ public class User {
 
 	public User() {
 	}
-	
+
 	public User(String name, String email, String password) {
-        super();
-        this.name = name;
-        this.email = email;
-        this.password = password;
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
 	}
+
 	public User(int id, String name, String email, String password) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
-	
-	
 
 	public User(String name, String email, String password, String mobile) {
 		super();
@@ -64,7 +63,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getMobile() {
 		return mobile;
 	}
@@ -77,5 +76,5 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
 	}
-	
+
 }

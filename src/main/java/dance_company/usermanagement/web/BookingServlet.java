@@ -15,9 +15,7 @@ import connection.DbCon;
 import dance_company.usermanagement.dao.ProductDao;
 import dance_company.usermanagement.model.Product;
 
-/**
- * Servlet implementation class Booking
- */
+
 @WebServlet("/BookingServlet")
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,17 +33,14 @@ public class BookingServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/classList.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
