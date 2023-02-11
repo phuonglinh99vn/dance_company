@@ -22,9 +22,8 @@ public class Review {
 		this.reviewDate = reviewDate;
 	}
 
-	public Review(int reviewId, int productId, int userId, String comment, int rating, Date reviewDate) {
+	public Review(int productId, int userId, int rating, String comment,  Date reviewDate) {
 		super();
-		this.reviewId = reviewId;
 		this.productId = productId;
 		this.userId = userId;
 		this.comment = comment;

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 
 import connection.DbCon;
 import dance_company.usermanagement.dao.*;
@@ -48,7 +49,7 @@ public class ReviewServlet extends HttpServlet {
 			java.util.Date date = new java.util.Date();
 			java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-			Review review = new Review(productId, userId, rating, comment, rating, sqlDate);
+			Review review = new Review(productId, userId, rating, comment, sqlDate);
 			ReviewDAO reviewDAO = new ReviewDAO(DbCon.getConnection());
 			reviewDAO.insertReview(review);
 			response.sendRedirect("detail?id=" + productId);

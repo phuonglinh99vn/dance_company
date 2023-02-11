@@ -107,12 +107,13 @@
 					
 					
 					<div>
+					<h1 class="text-center text-bold mb-5">Reviews</h1>
 					<c:forEach var="review" items="${reviews}">
 					<div class="col-xl-3 mb-5">
 						<div class="card">
 							<div class="card-body d-flex flex-column">
 								<div class="card-title fw-bold fs-4">${review.userName}</div>
-								<div class="card-title fw-bold fs-4">${review.date}</div>
+								<div class="card-title fw-bold fs-4">${review.reviewDate}</div>
 								<div class="card-text">Rating: ${review.rating}</div>
 								<div class="mb-4 cart-text">Comment: ${review.comment}</div>
 								<div class="mt-auto flex-row justify-content-between">
