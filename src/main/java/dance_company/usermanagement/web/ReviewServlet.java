@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
 import connection.DbCon;
+import constant.PublicConstant;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
@@ -54,7 +55,7 @@ public class ReviewServlet extends HttpServlet {
 			reviewDAO.insertReview(review);
 			response.sendRedirect("detail?id=" + productId);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 
 	}
@@ -67,11 +68,10 @@ public class ReviewServlet extends HttpServlet {
 
 			request.setAttribute("reviews", reviewDAO.getReviewsByProductId(productId));
 			request.getRequestDispatcher("detail?id=" + productId).forward(request, response);
-			
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 
-		
 	}
 }

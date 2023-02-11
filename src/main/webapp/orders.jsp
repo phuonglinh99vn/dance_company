@@ -14,15 +14,12 @@
 					<div class="col-xl-3 mb-5">
 						<div class="card">
 							<div class="card-body d-flex flex-column">
-							<div class="card-title fw-bold fs-4">${order.userId}</div>	
-								<div class="card-title fw-bold fs-4">${order.submitDate}</div>
-								<div class="col-3"><span>user Id: ${order.userId}</span>
+							<div class="col-3"><span>user Id: ${order.userId}</span>
 								<div class="col-3"><span>Date submitted: ${order.submitDate}</span>							
 								<div class="mt-auto flex-row justify-content-between">
 									<%-- <a class="btn btn-dark text-right" href="add-to-cart?id=<%=p.getId()%>">View Details</a>  --%>
-									<a class="btn btn-primary" href="">View
+									<a class="btn btn-primary" href="OrderBOServlet?action=orderdetails&id=${order.id}">View
 										Details</a>
-									<a class="btn btn-primary" href="OrderServlet?action=orderlist$id=${order.id}">Approve Order</a>
 								</div>
 							</div>
 						</div>

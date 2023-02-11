@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import connection.DbCon;
+import constant.PublicConstant;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
@@ -25,20 +26,20 @@ public class ProductsServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
 			int id = Integer.parseInt(request.getParameter("id"));
-			
+
 			ProductDAO pdao = new ProductDAO(DbCon.getConnection());
 			Product p = pdao.getSingleProduct(id);
 			List<Product> s = pdao.getSchedule(id);
 			request.setAttribute("detail", p);
 			request.setAttribute("schedule", s);
-			
+
 			ReviewDAO reviewDAO = new ReviewDAO(DbCon.getConnection());
 			List<Review> reviews = reviewDAO.getReviewsByProductId(id);
 			request.setAttribute("reviews", reviews);
-			
+
 			request.getRequestDispatcher("singleproduct.jsp").forward(request, response);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 	}
 
@@ -47,6 +48,5 @@ public class ProductsServlet extends HttpServlet {
 
 		doGet(request, response);
 	}
-	
 
 }

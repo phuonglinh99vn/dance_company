@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import connection.DbCon;
+import constant.PublicConstant;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
@@ -32,10 +33,8 @@ public class BookingServlet extends HttpServlet {
 			request.setAttribute("products", products);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/classlist.jsp");
 			dispatcher.forward(request, response);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 		
 	}

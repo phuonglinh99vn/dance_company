@@ -2,7 +2,9 @@ package dance_company.usermanagement.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.System.Logger;
 import java.sql.SQLException;
+import java.util.logging.LogManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import connection.DbCon;
+import constant.PublicConstant;
 import dance_company.usermanagement.dao.UserDAO;
+import dance_company.usermanagement.model.Logging;
 import dance_company.usermanagement.model.User;
 
 @WebServlet("/Authentication")
@@ -27,18 +31,13 @@ public class AuthenticationServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			String action = request.getParameter("action");
-			if (action.equalsIgnoreCase("login")) {
-				Login(request, response);
-			} else if (action.equalsIgnoreCase("logout")) {
-				Logout(request, response);
-			} else if (action.equalsIgnoreCase("register")) {
-				Register(request, response);
-			}
-		} catch (Exception e) {
-
-			e.printStackTrace();
+		String action = request.getParameter("action");
+		if (action.equalsIgnoreCase("login")) {
+			Login(request, response);
+		} else if (action.equalsIgnoreCase("logout")) {
+			Logout(request, response);
+		} else if (action.equalsIgnoreCase("register")) {
+			Register(request, response);
 		}
 
 	}
@@ -64,7 +63,7 @@ public class AuthenticationServlet extends HttpServlet {
 				session.setAttribute("name", user.getName());
 				session.setAttribute("userId", user.getId());
 				response.sendRedirect(url[url.length - 1]);
-			} else if (admin != null ) {
+			} else if (admin != null) {
 				session.setAttribute("name", admin.getName());
 				response.sendRedirect(url[url.length - 1]);
 			} else {
@@ -74,15 +73,19 @@ public class AuthenticationServlet extends HttpServlet {
 
 			}
 
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 	}
 
 	private void Logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		session.removeAttribute("name");
-		response.sendRedirect("HomeServlet");
+		try {
+			HttpSession session = request.getSession(false);
+			session.removeAttribute("name");
+			response.sendRedirect("HomeServlet");
+		} catch (Exception e) {
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
+		}
 	}
 
 	private void Register(HttpServletRequest request, HttpServletResponse response)
@@ -100,7 +103,7 @@ public class AuthenticationServlet extends HttpServlet {
 			response.sendRedirect("HomeServlet");
 			return;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 	}
 

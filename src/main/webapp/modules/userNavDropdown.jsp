@@ -17,7 +17,7 @@
 		<ul class="dropdown-menu">
 		<c:if test="${sessionScope.name == 'admin'}">
 			<li><a class="dropdown-item" href="/dance_company/UserServlet?action=list"">User Management</a></li>
-			<li><a class="dropdown-item" href="/dance_company/OrderServlet?action=orderlist"">Order Management</a></li>
+			<li><a class="dropdown-item" href="/dance_company/OrderBOServlet?action=orderlist"">Order Management</a></li>
 		</c:if>
 		<c:if test="${sessionScope.name != 'admin'}">
 			<li><a class="dropdown-item" href="/dance_company/OrderServlet?action=view_timetable">My Classes</a></li>

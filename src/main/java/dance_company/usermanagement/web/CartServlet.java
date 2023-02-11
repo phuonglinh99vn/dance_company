@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.plaf.basic.BasicPanelUI;
 
 import connection.DbCon;
+import constant.PublicConstant;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
@@ -30,7 +31,6 @@ public class CartServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
 			String action = request.getParameter("action");
 			if (action.equalsIgnoreCase("add")) {
 				doGetAdd(request, response);
@@ -41,9 +41,6 @@ public class CartServlet extends HttpServlet {
 			} else if (action.equalsIgnoreCase("submit_cart")) {
 				doGetSubmitCart(request, response);
 			}
-		} catch (Exception e) {
-			LoggingService.logError("Error", e);
-		}
 	}
 
 	protected void doGetAdd(HttpServletRequest request, HttpServletResponse response)
@@ -85,10 +82,8 @@ public class CartServlet extends HttpServlet {
 
 			}
 
-		}
-
-		catch (ClassNotFoundException | SQLException e) {
-			LoggingService.logError("Error adding order ", e);
+		} catch (Exception e) {
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 
 	}
@@ -115,7 +110,7 @@ public class CartServlet extends HttpServlet {
 			response.sendRedirect("CartServlet?action=view_cart");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 
 	}
@@ -147,7 +142,7 @@ public class CartServlet extends HttpServlet {
 				response.sendRedirect("BookingServlet");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 	}
 

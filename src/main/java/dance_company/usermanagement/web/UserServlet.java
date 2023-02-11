@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import connection.DbCon;
+import constant.PublicConstant;
 import dance_company.usermanagement.dao.*;
 import dance_company.usermanagement.model.*;
 
@@ -33,7 +34,6 @@ public class UserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-
 		try {
 			switch (action) {
 			case "delete":
@@ -44,7 +44,7 @@ public class UserServlet extends HttpServlet {
 				break;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 	}
 
@@ -57,17 +57,21 @@ public class UserServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("adminportal.jsp");
 			dispatcher.forward(request, response);
 
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
 		}
 	}
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ClassNotFoundException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		UserDAO udao = new UserDAO(DbCon.getConnection());
-		udao.deleteUser(id);
-		response.sendRedirect("UserServlet?action=list");
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));
+			UserDAO udao = new UserDAO(DbCon.getConnection());
+			udao.deleteUser(id);
+			response.sendRedirect("UserServlet?action=list");
+		} catch (Exception e) {
+			Logging.Logger(PublicConstant.ERROR, e.getMessage());
+		}
 
 	}
 }

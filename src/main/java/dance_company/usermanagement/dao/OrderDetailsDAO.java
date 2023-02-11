@@ -53,7 +53,7 @@ public class OrderDetailsDAO {
 		}
 	}
 
-	public List<OrderDetails> getOderDetails(int id) {
+	public List<OrderDetails> getTimetable(int id) {
 		List<OrderDetails> orderDetails = new ArrayList<>();
 		try {
 			query = "SELECT ods.id, userId, submitDate, od.approve, order_id, sc.time, dc.name, dc.level, dc.teacher FROM dance_company.order od\r\n"
@@ -85,6 +85,41 @@ public class OrderDetailsDAO {
 		}
 		return orderDetails;
 	}
+	
+	public List<OrderDetails> getOderDetails(int id) {
+		List<OrderDetails> orderDetails = new ArrayList<>();
+		try {
+			query = "SELECT ods.id, userId, submitDate, od.approve, order_id, sc.time, dc.name, dc.level, dc.teacher FROM dance_company.order od\r\n"
+					+ "					join order_details ods on od.id = ods.order_id\r\n"
+					+ "					join schedule sc on ods.schedule_id = sc.idschedule\r\n"
+					+ "					join dance_class dc on sc.class_id = dc.id\r\n" + "				where order_id=?";
+
+			pst = this.con.prepareStatement(query);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				OrderDetails row = new OrderDetails();
+				row.setId(rs.getInt("id"));
+				row.setUserId(rs.getInt("userId"));
+				row.setSubmitDate(rs.getDate("submitDate"));
+				row.setOrderId(rs.getInt("order_id"));
+				row.setName(rs.getString("name"));
+				row.setLevel(rs.getString("level"));
+				row.setTeacher(rs.getString("teacher"));
+				row.setTime(rs.getString("time"));
+
+				orderDetails.add(row);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return orderDetails;
+	}
+	
+	
 
 	public boolean deleteOrderDetails(int id) throws SQLException {
 		boolean rowDeleted;

@@ -107,24 +107,24 @@ public class OrderDAO {
 	public void approveOrder(int id) {
 		try {
 
-			query = "\"UPDATE orders SET is_approve=1 WHERE id=?\"";
+			query = "UPDATE dance_company.order SET approve=1 WHERE id=?";
 			pst = this.con.prepareStatement(query);
 			rs = pst.executeQuery();
 			
 		} catch (SQLException e) {
 			// log the error
-		} finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-			} catch (SQLException e) {
-				// log the error
-				e.printStackTrace();
-			}
+//		} finally {
+//			try {
+//				if (pst != null) {
+//					pst.close();
+//				}
+//				if (pst != null) {
+//					pst.close();
+//				}
+//			} catch (SQLException e) {
+//				// log the error
+//				e.printStackTrace();
+//			}
 		}
 	}
 
