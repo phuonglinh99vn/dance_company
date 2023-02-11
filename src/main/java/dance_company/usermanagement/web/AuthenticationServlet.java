@@ -16,18 +16,17 @@ import connection.DbCon;
 import dance_company.usermanagement.dao.UserDAO;
 import dance_company.usermanagement.model.User;
 
-
 @WebServlet("/Authentication")
 public class AuthenticationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public AuthenticationServlet() {
-        super();
+	public AuthenticationServlet() {
+		super();
 
-    }
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			String action = request.getParameter("action");
 			if (action.equalsIgnoreCase("login")) {
@@ -41,30 +40,34 @@ public class AuthenticationServlet extends HttpServlet {
 
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		doGet(request, response);
 	}
-	
-	private void Login(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+
+	private void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
 			String email = request.getParameter("login-email");
 			String password = request.getParameter("login-password");
-			String[] url = request.getHeader("referer").split("/");	
+			String[] url = request.getHeader("referer").split("/");
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			User user = udao.userLogin(email, password);
-			if (user != null) {
-				HttpSession session = request.getSession(false);
+			User admin = udao.adminLogin(email, password);
+			HttpSession session = request.getSession(false);
+
+			if (user != null && admin == null) {
 				session.setAttribute("name", user.getName());
 				session.setAttribute("userId", user.getId());
-				response.sendRedirect(url[url.length-1]);
+				response.sendRedirect(url[url.length - 1]);
+			} else if (admin != null ) {
+				session.setAttribute("name", admin.getName());
+				response.sendRedirect(url[url.length - 1]);
 			} else {
-				System.out.println(url[url.length-1]);
 				String warn = "Your email or passowrd is incorrect! \n Please login again";
 				request.setAttribute("warn", warn);
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -75,22 +78,23 @@ public class AuthenticationServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void Logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		session.removeAttribute("name");
 		response.sendRedirect("HomeServlet");
 	}
-	
-	private void Register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void Register(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
-			String userName= request.getParameter("name");
-			String userEmail= request.getParameter("email");
-			String userPassword= request.getParameter("pwd");
-			String userPhone= request.getParameter("mobile");
-			
-			User user= new User(userName, userEmail, userPassword, userPhone);
+			String userName = request.getParameter("name");
+			String userEmail = request.getParameter("email");
+			String userPassword = request.getParameter("pwd");
+			String userPhone = request.getParameter("mobile");
+
+			User user = new User(userName, userEmail, userPassword, userPhone);
 			UserDAO udao = new UserDAO(DbCon.getConnection());
 			udao.insertUser(user);
 			response.sendRedirect("HomeServlet");
@@ -99,8 +103,5 @@ public class AuthenticationServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
 
 }

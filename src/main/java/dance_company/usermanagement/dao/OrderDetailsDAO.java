@@ -56,10 +56,10 @@ public class OrderDetailsDAO {
 	public List<OrderDetails> getOderDetails(int id) {
 		List<OrderDetails> orderDetails = new ArrayList<>();
 		try {
-			query = "SELECT ods.id, userId, submitDate, od.status, order_id, sc.time, dc.name, dc.level, dc.teacher FROM dance_company.order od\r\n"
+			query = "SELECT ods.id, userId, submitDate, od.approve, order_id, sc.time, dc.name, dc.level, dc.teacher FROM dance_company.order od\r\n"
 					+ "					join order_details ods on od.id = ods.order_id\r\n"
 					+ "					join schedule sc on ods.schedule_id = sc.idschedule\r\n"
-					+ "					join dance_class dc on sc.class_id = dc.id\r\n" + "				where userId=?";
+					+ "					join dance_class dc on sc.class_id = dc.id\r\n" + "				where userId=? & od.approve=1";
 
 			pst = this.con.prepareStatement(query);
 			pst.setInt(1, id);
@@ -70,7 +70,6 @@ public class OrderDetailsDAO {
 				row.setId(rs.getInt("id"));
 				row.setUserId(rs.getInt("userId"));
 				row.setSubmitDate(rs.getDate("submitDate"));
-				row.setStatus(rs.getString("status"));
 				row.setOrderId(rs.getInt("order_id"));
 				row.setName(rs.getString("name"));
 				row.setLevel(rs.getString("level"));

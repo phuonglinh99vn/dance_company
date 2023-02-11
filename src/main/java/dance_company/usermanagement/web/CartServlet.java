@@ -42,8 +42,7 @@ public class CartServlet extends HttpServlet {
 				doGetSubmitCart(request, response);
 			}
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			LoggingService.logError("Error", e);
 		}
 	}
 
@@ -51,10 +50,10 @@ public class CartServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try (PrintWriter out = response.getWriter()) {
-			int id = Integer.parseInt(request.getParameter("schedule"));
-			int id1 = Integer.parseInt(request.getParameter("productId"));
-			ProductDao pdao = new ProductDao(DbCon.getConnection());
-			Product p = pdao.getSingleSchedule(id);
+			int sid = Integer.parseInt(request.getParameter("schedule"));
+			int pid = Integer.parseInt(request.getParameter("productId"));
+			ProductDAO pdao = new ProductDAO(DbCon.getConnection());
+			Product p = pdao.getSingleSchedule(sid);
 			HttpSession session = request.getSession(false);
 
 			List<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
@@ -63,7 +62,7 @@ public class CartServlet extends HttpServlet {
 				cart = new ArrayList<Product>();
 				cart.add(p);
 				session.setAttribute("cart", cart);
-				response.sendRedirect("detail?id=" + id1);
+				response.sendRedirect("detail?id=" + pid);
 
 			} else {
 				boolean exist = false;
@@ -73,7 +72,7 @@ public class CartServlet extends HttpServlet {
 						exist = true;
 						String noti = "You have another class at the same time. \n Please choose another.";
 						request.setAttribute("noti", noti);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("detail?id=" + id1);
+						RequestDispatcher dispatcher = request.getRequestDispatcher("detail?id=" + pid);
 						dispatcher.forward(request, response);
 					}
 				}
@@ -81,7 +80,7 @@ public class CartServlet extends HttpServlet {
 				if (exist == false) {
 					cart.add(p);
 					session.setAttribute("cart", cart);
-					request.getRequestDispatcher("detail?id=" + id1).forward(request, response);
+					request.getRequestDispatcher("detail?id=" + pid).forward(request, response);
 				}
 
 			}
@@ -89,7 +88,7 @@ public class CartServlet extends HttpServlet {
 		}
 
 		catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			LoggingService.logError("Error adding order ", e);
 		}
 
 	}
@@ -136,7 +135,7 @@ public class CartServlet extends HttpServlet {
 			} else {
 				Integer userId = (int) session.getAttribute("userId");
 				OrderDAO orderDAO = new OrderDAO(DbCon.getConnection());
-				Order order = new Order(userId, null);
+				Order order = new Order(userId);
 				int orderId = orderDAO.addOrder(order);
 				OrderDetailsDAO oDAO = new OrderDetailsDAO(DbCon.getConnection());
 
@@ -154,8 +153,8 @@ public class CartServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("schedule"));
-		int id1 = Integer.parseInt(request.getParameter("productId"));
+		int sid = Integer.parseInt(request.getParameter("schedule"));
+		int pid = Integer.parseInt(request.getParameter("productId"));
 		doGetAdd(request, response);
 	}
 }

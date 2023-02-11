@@ -6,25 +6,31 @@ public class Order {
 	private int id;
 	private int userId;
 	private Date submitDate;
-	private String status;
+	private boolean approve;
 	
 	public Order() {
 		super();
 	}
 
-	public Order(int id, int userId, Date submitDate, String status) {
+	public Order(int id, int userId, Date submitDate, boolean approve) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.submitDate = submitDate;
-		this.status = status;
+		this.approve = approve;
 	}
 
-	public Order(int userId, String status) {
+	public Order(int userId, boolean approve) {
 		super();
 		this.userId = userId;
-		this.status = status;
+		this.approve = approve;
 	}
+	
+	public Order(int userId) {
+		super();
+		this.userId = userId;
+	}
+	
 
 	public int getId() {
 		return id;
@@ -50,12 +56,12 @@ public class Order {
 		this.submitDate = submitDate;
 	}
 
-	public String getStatus() {
-		return status;
-	}
+	public boolean isApprove() {
+        return approve;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setApprove(boolean approve) {
+		this.approve = approve;
 	}
 	
 	

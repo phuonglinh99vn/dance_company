@@ -25,13 +25,13 @@ public class ProductsServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
 			int id = Integer.parseInt(request.getParameter("id"));
-			ProductDao pdao = new ProductDao(DbCon.getConnection());
+			ProductDAO pdao = new ProductDAO(DbCon.getConnection());
 			Product p = pdao.getSingleProduct(id);
 			List<Product> s = pdao.getSchedule(id);
 
 			request.setAttribute("detail", p);
 			request.setAttribute("schedule", s);
-			request.getRequestDispatcher("single-product.jsp").forward(request, response);
+			request.getRequestDispatcher("singleproduct.jsp").forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -42,5 +42,6 @@ public class ProductsServlet extends HttpServlet {
 
 		doGet(request, response);
 	}
+	
 
 }

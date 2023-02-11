@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,14 +13,16 @@
 				<c:forEach var="order" items="${orders}">
 					<div class="col-xl-3 mb-5">
 						<div class="card">
-							<img class="card-img-top w-100" style="height: 150px" src="http://localhost:8080/dance_company/images/${product.image}" alt="Card Image" />
 							<div class="card-body d-flex flex-column">
+							<div class="card-title fw-bold fs-4">${order.userId}</div>	
 								<div class="card-title fw-bold fs-4">${order.submitDate}</div>
-								<div class="card-text">Level: ${order.approv}</div>
+								<div class="col-3"><span>user Id: ${order.userId}</span>
+								<div class="col-3"><span>Date submitted: ${order.submitDate}</span>							
 								<div class="mt-auto flex-row justify-content-between">
 									<%-- <a class="btn btn-dark text-right" href="add-to-cart?id=<%=p.getId()%>">View Details</a>  --%>
-									<a class="btn btn-primary" href="detail?id=${order.id}">View
+									<a class="btn btn-primary" href="">View
 										Details</a>
+									<a class="btn btn-primary" href="OrderServlet?action=orderlist$id=${order.id}">Approve Order</a>
 								</div>
 							</div>
 						</div>

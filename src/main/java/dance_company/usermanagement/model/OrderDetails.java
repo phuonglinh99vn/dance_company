@@ -8,7 +8,6 @@ public class OrderDetails {
 	public int userId;
 	private int scheduleId;
 	private Date submitDate;
-	private String status;
 	private int orderId;
 	public String name;
 	public String level;
@@ -24,13 +23,12 @@ public class OrderDetails {
 		this.scheduleId = scheduleId;
 	}
 
-	public OrderDetails(int id, int userId, Date submitDate, String status, int orderId, String name, String level,
+	public OrderDetails(int id, int userId, Date submitDate, int orderId, String name, String level,
 			String teacher, String time) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.submitDate = submitDate;
-		this.status = status;
 		this.orderId = orderId;
 		this.name = name;
 		this.level = level;
@@ -68,14 +66,6 @@ public class OrderDetails {
 
 	public void setSubmitDate(Date submitDate) {
 		this.submitDate = submitDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public int getOrderId() {

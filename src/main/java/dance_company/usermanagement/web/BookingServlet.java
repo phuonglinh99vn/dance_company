@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import connection.DbCon;
-import dance_company.usermanagement.dao.ProductDao;
-import dance_company.usermanagement.model.Product;
+import dance_company.usermanagement.dao.*;
+import dance_company.usermanagement.model.*;
 
 
 @WebServlet("/BookingServlet")
@@ -27,10 +27,10 @@ public class BookingServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			ProductDao pdao = new ProductDao(DbCon.getConnection());
+			ProductDAO pdao = new ProductDAO(DbCon.getConnection());
 			List<Product> products = pdao.getAllProducts();
 			request.setAttribute("products", products);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/classList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/classlist.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

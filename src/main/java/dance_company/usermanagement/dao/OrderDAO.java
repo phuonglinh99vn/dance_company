@@ -9,7 +9,6 @@ import dance_company.usermanagement.model.Order;
 public class OrderDAO {
 
 	private Connection con;
-
 	private String query;
 	private PreparedStatement pst;
 	private ResultSet rs;
@@ -22,12 +21,12 @@ public class OrderDAO {
 	public int addOrder(Order order) throws SQLException {
 
 		try {
-			String sql = "INSERT INTO `dance_company`.`order` (`userId`, `submitDate`, `status`) VALUES (?,?,?)";
-			pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			query = "INSERT INTO `dance_company`.`order` (`userId`, `submitDate`, `approve`) VALUES (?,?,?)";
+			pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 			pst.setInt(1, order.getUserId());
 			pst.setDate(2, new Date(System.currentTimeMillis()));
-			pst.setString(3, order.getStatus());
+			pst.setBoolean(3, order.isApprove());
 
 			pst.execute();
 			rs = pst.getGeneratedKeys();
@@ -60,11 +59,11 @@ public class OrderDAO {
 
 	}
 
-	public List<Order> getAllOrders(int id) {
+	public List<Order> getOrders(int id) {
 		List<Order> order = new ArrayList<>();
 		try {
 
-			query = "select * from order where userId=?";
+			query = "select * from dance_company.order where userId=?";
 			pst = this.con.prepareStatement(query);
 			rs = pst.executeQuery();
 
@@ -73,7 +72,7 @@ public class OrderDAO {
 				row.setId(rs.getInt("id"));
 				row.setUserId(rs.getInt("userId"));
 				row.setSubmitDate(rs.getDate("submitDate"));
-				row.setStatus(rs.getString("status"));
+				row.setApprove(rs.getBoolean("approve"));
 
 				order.add(row);
 			}
@@ -83,6 +82,50 @@ public class OrderDAO {
 			System.out.println(e.getMessage());
 		}
 		return order;
+	}
+
+	public List<Order> getAllOrders() {
+		List<Order> orders = new ArrayList<>();
+		query = "select * from dance_company.order";
+		try {
+			pst = this.con.prepareStatement(query);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Order row = new Order();
+				row.setId(rs.getInt("id"));
+				row.setUserId(rs.getInt("userId"));
+				row.setSubmitDate(rs.getDate("submitDate"));
+				row.setApprove(rs.getBoolean("approve"));
+				orders.add(row);
+			}
+		} catch (SQLException e) {
+		}
+		return orders;
+	}
+
+	public void approveOrder(int id) {
+		try {
+
+			query = "\"UPDATE orders SET is_approve=1 WHERE id=?\"";
+			pst = this.con.prepareStatement(query);
+			rs = pst.executeQuery();
+			
+		} catch (SQLException e) {
+			// log the error
+		} finally {
+			try {
+				if (pst != null) {
+					pst.close();
+				}
+				if (pst != null) {
+					pst.close();
+				}
+			} catch (SQLException e) {
+				// log the error
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
