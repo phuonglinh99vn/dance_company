@@ -13,7 +13,7 @@
 					<div class="p-md-5" style="width: 35rem">
 						<h3 class="mb-5">GET IN TOUCH WITH US</h3>
 						<div id="form-message-warning" class="mb-4"></div>
-						<form method="POST" id="contactForm" name="contactForm"
+						<form action="ContactUsServlet" method="POST" id="contactForm" name="contactForm"
 								class="contactForm" novalidate="novalidate">
 							<div class="row">
 								<div class="col-md-6 mb-3">

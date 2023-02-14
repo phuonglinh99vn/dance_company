@@ -17,7 +17,7 @@
 	
 	<jsp:attribute name="body">
 	<section class="container text-white mb-5 mt-5 vh-100">
-		<h1 class="text-center text-bold mb-5">Order Details</h1>
+		<h1 class="text-center text-bold mb-5">Orders</h1>
 		<hr>
 		
 		<c:forEach var="item" items="${orderDetails}">
@@ -32,13 +32,13 @@
 			<div class="col-3">
 				<span>Teacher: ${item.teacher}</span>
 			</div>
-			<div class="col-2">
-				
-			</div>
+			
 		</div>
 		<hr>
-			
 		</c:forEach>
-		<a class="btn btn-primary" href="OrderBOServlet?action=approveOrder&id=${orderId}">Approve Order</a>
+		<div class="col-2">
+				<a class="btn btn-primary" href="OrderBOServlet?action=approveOrder&id=${orderId}">Approve Order</a>
+			</div>
+	</section>
 </jsp:attribute>
 </t:template>

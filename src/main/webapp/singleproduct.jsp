@@ -44,8 +44,10 @@
 							
 							
 							
+							
 							<p>Please discuss with your teacher if you feel you are ready
 							to progress up to the next level.
+							
 							
 							
 							
@@ -88,32 +90,34 @@
 						</c:if>
 					
 					</div>
-					<h1>Submit Review</h1>
- 	<form action="ReviewServlet?action=addReview" method="post">
-    <input type="hidden" name="productId" value="${detail.id}" />
-    <p>
-      <label for="review">Review:</label>
-      <textarea id="comment" name="comment" required></textarea>
-    </p>
-    <p>
-      <label for="rating">Rating:</label>
-      <input type="number" id="rating" name="rating" min="1" max="5"
-									required />
-    </p>
-    <p>
-      <input type="submit" value="Submit Review" />
-    </p>
-  </form>
+
+		</div>
+<h1 class="text-white text-bold mb-5">Reviews</h1>
+<form action="ReviewServlet?action=addReview" method="post">
+  <input type="hidden" name="productId" value="${detail.id}" />
+  <p>
+    <label for="comment" class="text-white label fw-bold">Comment:</label>
+    <textarea id="comment" name="comment" class="form-control" cols="20" rows="3" required></textarea>
+  </p>
+  <p>
+    <label for="rating" class="text-white label fw-bold" class="form-control">Rating:</label>
+    <input type="number" id="rating" name="rating" min="1" max="5"
+					required />
+  </p>
+  <p>
+    <input type="submit" value="Submit Review" />
+  </p>
+</form>
 					
 					
 					<div>
-					<h1 class="text-center text-bold mb-5">Reviews</h1>
+					
 					<c:forEach var="review" items="${reviews}">
-					<div class="col-xl-3 mb-5">
+					<div class="row d-flex align-items-center p-3">
 						<div class="card">
 							<div class="card-body d-flex flex-column">
 								<div class="card-title fw-bold fs-4">${review.userName}</div>
-								<div class="card-title fw-bold fs-4">${review.reviewDate}</div>
+								<div class="card-text">Reviewed on ${review.reviewDate}</div>
 								<div class="card-text">Rating: ${review.rating}</div>
 								<div class="mb-4 cart-text">Comment: ${review.comment}</div>
 								<div class="mt-auto flex-row justify-content-between">
@@ -122,11 +126,10 @@
 						</div>
 					</div>
 				</c:forEach> 
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+					</div>	
+		</section>
+
+
 	<script>
 		const toastTrigger = document.getElementById('liveToastBtn');
 		const toastLiveExample = document.getElementById('liveToast');

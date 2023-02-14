@@ -86,7 +86,9 @@ public class OrderDAO {
 
 	public List<Order> getAllOrders() {
 		List<Order> orders = new ArrayList<>();
-		query = "select * from dance_company.order";
+		query = "select od.*, us.name from dance_company.order od\r\n"
+				+ "JOIN dance_company.user us on od.userId = us.id;";
+		
 		try {
 			pst = this.con.prepareStatement(query);
 			rs = pst.executeQuery();
@@ -95,6 +97,7 @@ public class OrderDAO {
 				Order row = new Order();
 				row.setId(rs.getInt("id"));
 				row.setUserId(rs.getInt("userId"));
+				row.setUserName(rs.getString("name"));
 				row.setSubmitDate(rs.getDate("submitDate"));
 				row.setApprove(rs.getBoolean("approve"));
 				orders.add(row);
@@ -105,14 +108,57 @@ public class OrderDAO {
 	}
 
 	public void approveOrder(int id) {
-		try {
-
-			query = "UPDATE dance_company.order SET approve=1 WHERE id=?";
+		query = "UPDATE dance_company.order SET approve=1 WHERE id=?";
+		try {	
 			pst = this.con.prepareStatement(query);
-			rs = pst.executeQuery();
-			
+//			rs = pst.executeQuery();
+	        pst.setInt(1, id); // set parameter for order ID
+	        pst.executeUpdate(); // execute update, no need to use ResultSet
+
 		} catch (SQLException e) {
-			// log the error
+			System.out.println("Error approving order: " + e.getMessage());
+		}
+	}
+
+	public Order getOrderById(int orderId) {
+		Order row = new Order();
+		try {
+			// prepare statement to select order by ID
+			pst = this.con.prepareStatement("SELECT * FROM orders WHERE id = ?");
+			pst.setInt(1, orderId);
+
+			// execute query
+			rs = pst.executeQuery();
+
+			// if order found, create Order object
+			if (rs.next()) {
+				row.setId(rs.getInt("id"));
+				row.setUserId(rs.getInt("userId"));
+				row.setSubmitDate(rs.getDate("submitDate"));
+				row.setApprove(rs.getBoolean("approve"));
+				// set other properties as needed
+			}
+		} catch (SQLException e) {
+			// handle exception
+		} finally {
+			// close statement and result set
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pst != null) {
+					pst.close();
+				}
+			} catch (SQLException e) {
+				// handle exception
+			}
+			// close database connection
+			// code to close connection
+
+		}
+		return row;
+	}
+}
 //		} finally {
 //			try {
 //				if (pst != null) {
@@ -125,7 +171,21 @@ public class OrderDAO {
 //				// log the error
 //				e.printStackTrace();
 //			}
-		}
-	}
+//		}
+//	}
 
-}
+//	public boolean approveOrder(int id) throws SQLException {
+//		try {
+//		boolean rowUpdated;
+//
+//		query = "UPDATE dance_company.order SET approve=1 WHERE id=?";
+//		pst = this.con.prepareStatement(query);
+//		rowUpdated = pst.executeUpdate() > 0;
+//		pst.setInt(1, id);
+//		return rowUpdated;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return false;
+//	}
+//	

@@ -7,7 +7,7 @@
 	<display-name>Dance Company</display-name>
 	<welcome-file-list>
 		<welcome-file>HomeServlet</welcome-file>
-	</welcome-file-list> 
+	</welcome-file-list>
 
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
@@ -23,7 +23,10 @@
 		<url-pattern>*.jpg</url-pattern>
 	</servlet-mapping>
 
-
+	<servlet>
+		<servlet-name>ContactUsServlet</servlet-name>
+		<servlet-class>ContactUsServlet</servlet-class>
+	</servlet>
 
 
 </web-app>

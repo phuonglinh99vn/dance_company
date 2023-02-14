@@ -5,9 +5,10 @@ import java.util.Date;
 public class Order {
 	private int id;
 	private int userId;
+	private String userName;
 	private Date submitDate;
 	private boolean approve;
-	
+
 	public Order() {
 		super();
 	}
@@ -20,17 +21,25 @@ public class Order {
 		this.approve = approve;
 	}
 
+	public Order(int id, int userId, String userName, Date submitDate, boolean approve) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.userName = userName;
+		this.submitDate = submitDate;
+		this.approve = approve;
+	}
+
 	public Order(int userId, boolean approve) {
 		super();
 		this.userId = userId;
 		this.approve = approve;
 	}
-	
+
 	public Order(int userId) {
 		super();
 		this.userId = userId;
 	}
-	
 
 	public int getId() {
 		return id;
@@ -57,15 +66,19 @@ public class Order {
 	}
 
 	public boolean isApprove() {
-        return approve;
-    }
+		return approve;
+	}
 
 	public void setApprove(boolean approve) {
 		this.approve = approve;
 	}
-	
-	
-	
-	
-	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 }

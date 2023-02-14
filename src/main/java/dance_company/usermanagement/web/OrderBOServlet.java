@@ -55,7 +55,7 @@ public class OrderBOServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			Logging.Logger(PublicConstant.ERROR, e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
@@ -84,10 +84,12 @@ public class OrderBOServlet extends HttpServlet {
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
 			OrderDAO odao = new OrderDAO(DbCon.getConnection());
+//			Order order = odao.getOrderById(id);
+//			order.setApprove(true);
 			odao.approveOrder(id);
 			response.sendRedirect("OrderBOServlet?action=orderlist");
 		} catch (Exception e) {
-			Logging.Logger(PublicConstant.ERROR, e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
